@@ -1,0 +1,27 @@
+# colors
+CLICOLOR="YES"; export CLICOLOR
+LSCOLORS="ExGxFxdxCxDxDxhbadExExEx"; export LSCOLOR
+
+# aliases
+alias ls='ls -Glh'  # human readable, color coded ls
+alias rsync="rsync -h --progress --partial"  # use rsync like scp
+
+# environment variables
+export MP_EDITOR=/usr/bin/vi
+
+# make directory, change into it
+mkcd () {
+    mkdir -p "$*"
+    cd "$*"
+}
+
+# git autocompletion
+source ~/.git-completion.bash
+
+# show repository when in a git repo
+source ~/.git-prompt.sh
+export GIT_PS1_SHOWDIRTYSTATE=1
+export PS1='\$MBP:\w\n$(__git_ps1 "(%s)") $ '
+
+# allow forward searching
+stty -ixon
