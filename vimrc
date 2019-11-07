@@ -83,10 +83,10 @@ vnoremap > >gv
 set pastetoggle=<F2>
 set clipboard=unnamed
 
-autocmd FileType python colorscheme vividchalk
-autocmd FileType cpp colorscheme vividchalk
-autocmd FileType sh colorscheme vividchalk
-autocmd FileType vim colorscheme vividchalk
+autocmd FileType python colorscheme vividchalk_tcm
+autocmd FileType cpp colorscheme vividchalk_tcm
+autocmd FileType sh colorscheme vividchalk_tcm
+autocmd FileType vim colorscheme vividchalk_tcm
 autocmd FileType python highlight OverLength ctermbg=darkgray ctermfg=white
 autocmd FileType python match OverLength /\%81v.\+/
 autocmd FileType cpp highlight OverLength ctermbg=darkgray ctermfg=white
