@@ -91,3 +91,6 @@ autocmd FileType python highlight OverLength ctermbg=darkgray ctermfg=white
 autocmd FileType python match OverLength /\%81v.\+/
 autocmd FileType cpp highlight OverLength ctermbg=darkgray ctermfg=white
 autocmd FileType cpp match OverLength /\%121v.\+/
+
+" override search highlights
+highlight Search ctermfg=white ctermbg=darkgray
