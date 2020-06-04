@@ -2,7 +2,7 @@
 autocmd! bufwritepost .vimrc source %
 
 au BufNewFile,BufReadPre README set tw=70
-au BufNewFile,BufReadPre *.tex set tw=80
+au BufNewFile,BufReadPre *.tex set textwidth=0 wrapmargin=0 linebreak
 au BufNewFile,BufReadPre *.pxi set tw=80
 autocmd BufNewFile,BufRead  *.cuh :set filetype=cpp
 let mysyntaxfile = "~/.vim/mysyntax.vim"
@@ -87,6 +87,7 @@ autocmd FileType python colorscheme vividchalk_tcm
 autocmd FileType cpp colorscheme vividchalk_tcm
 autocmd FileType sh colorscheme vividchalk_tcm
 autocmd FileType vim colorscheme vividchalk_tcm
+autocmd FileType gitcommit colorscheme vividchalk_tcm
 autocmd FileType python highlight OverLength ctermbg=darkgray ctermfg=white
 autocmd FileType python match OverLength /\%81v.\+/
 autocmd FileType cpp highlight OverLength ctermbg=darkgray ctermfg=white
