@@ -30,20 +30,21 @@ export DALI='mtimc@dali.engin.umich.edu'
 export WARHOL='mtimc@warhol.engin.umich.edu'
 export XSEDE='mootimot@login.xsede.org'
 export STAMPEDE='mootimot@stampede2.tacc.utexas.edu'
+export GREATLAKES='mtimc@greatlakes.arc-ts.umich.edu'
+export BRIDGES2='mootimot@bridges2.psc.xsede.org'
+export SUMMIT='mtimc@summit.olcf.ornl.gov'
+export ANDES='mtimc@andes.olcf.ornl.gov'
+export HODGES='mtimc@cheme-hodges.engin.umich.edu'
 
 # path manipulation
-export PATH=/Applications/VMD\ 1.9.2.app/Contents/vmd:$PATH
-export PATH=${HOME}/anaconda/bin:$PATH
+#export PATH=/Applications/VMD\ 1.9.2.app/Contents/vmd:$PATH
+#export PATH=/Applications/Ovito.app/Contents/MacOS:$PATH
 
 # make directory, change into it
 mkcd () {
     mkdir -p "$*"
     cd "$*"
 }
-
-# use rsync like scp
-#alias scp="rsync -avhzP"
-alias rsync="rsync -zz h --progress --partial"
 
 # git autocompletion
 source ~/.git-completion.bash
@@ -55,6 +56,3 @@ export PS1='\$MBP:\w\n$(__git_ps1 "(%s)") $ '
 
 # allow forward searching (may also stop terminal "freezing")
 stty -ixon
-
-# modules
-source /usr/local/opt/modules/Modules/init/bash
