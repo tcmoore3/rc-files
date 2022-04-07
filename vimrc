@@ -94,4 +94,5 @@ autocmd FileType cpp highlight OverLength ctermbg=darkgray ctermfg=white
 autocmd FileType cpp match OverLength /\%121v.\+/
 
 " override search highlights
+" TODO: make cursor more visible on highlighted word
 highlight Search ctermfg=white ctermbg=darkgray
