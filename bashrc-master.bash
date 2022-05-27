@@ -6,6 +6,8 @@ if [[ -f /etc/bashrc ]]; then
 fi
 
 # GIT STUFF
+curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
+curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh -o ~/.git-prompt.bash
 if [[ -f $HOME/.git-prompt.sh ]]; then
     source ~/.git-prompt.sh
 fi
