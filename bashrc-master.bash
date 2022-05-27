@@ -6,8 +6,6 @@ if [[ -f /etc/bashrc ]]; then
 fi
 
 # GIT STUFF
-curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
-curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh -o ~/.git-prompt.bash
 if [[ -f $HOME/.git-prompt.sh ]]; then
     source ~/.git-prompt.sh
 fi
@@ -63,9 +61,10 @@ alias vi='vim'
 # MACHINE-SPECIFIC SETTINGS
 
 # laptop-specific things
-if [[ $HOSTNAME == MacBook-Pro.attlocal.net ]];
+if [[ $(hostname -s) == MacBook-Pro ]];
 then
     export PS1='\$MBP:\w\n$(__git_ps1 "(%s)") $ '
+    export BASH_SILENCE_DEPRECATION_WARNING=1
 fi
 
 # brett-specific stuff

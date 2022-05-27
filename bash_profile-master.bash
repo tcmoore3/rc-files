@@ -3,7 +3,7 @@ if [[ -f ~/.bashrc ]]; then
     . ~/.bashrc
 fi
 
-if [[ $HOSTNAME == MacBook-Pro.attlocal.net ]];
+if [[ $(hostname -s) == MacBook-Pro ]];
 then
     export PATH=/Applications/Ovito.app/Contents/MacOS:$PATH
     export PATH="$HOME/.gem/ruby/2.6.0/bin:$PATH"
