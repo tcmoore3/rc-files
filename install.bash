@@ -11,6 +11,7 @@ curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-pro
 if [[ $(hostname -s) == MacBook-Pro ]]; then
     cp bashrc-master.bash ~/.bashrc
     cp bash_profile-master.bash ~/.bash_profile
+    conda init bash
 fi
 
 # brett
@@ -35,6 +36,7 @@ fi
 if [[ $HOME == /jet/home/mootimot ]]; then
     cp bashrc-master.bash ~/.bashrc
     cp bash_profile-master.bash ~/.bash_profile
+    conda init bash
 fi
 
 # great-lakes
@@ -53,6 +55,7 @@ fi
 if [[ $HOSTNAME == perry.engin.umich.edu ]]; then
     cp bashrc-master.bash ~/.bashrc
     cp bash_profile-master.bash ~/.bash_profile
+    conda init bash
 fi
 
 # summit
