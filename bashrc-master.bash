@@ -69,17 +69,17 @@ fi
 
 # brett-specific stuff
 if [[ $HOSTNAME == brett.engin.umich.edu ]]; then
-    export PS1='\$BRETT:\w\n$(__git_psi "(%s)") $ '
+    export PS1='\$BRETT:\w\n$(__git_ps1 "(%s)") $ '
 fi
 
 # picasso-specific stuff
 if [[ $HOSTNAME == picasso.engin.umich.edu ]]; then
-    export PS1='\$PICASSO:\w\n$(__git_psi "(%s)") $ '
+    export PS1='\$PICASSO:\w\n$(__git_ps1 "(%s)") $ '
 fi
 
 # warhol-specific stuff
 if [[ $HOSTNAME == warhol.engin.umich.edu ]]; then
-    export PS1='\$WARHOL:\w\n$(__git_psi "(%s)") $ '
+    export PS1='\$WARHOL:\w\n$(__git_ps1 "(%s)") $ '
 fi
 
 # bridges2-specific things
@@ -107,18 +107,8 @@ fi
 
 # perry-specific things
 if [[ $HOSTNAME == perry.engin.umich.edu ]]; then
-    export PS1='\$PERRY:\w\n$(__git_psi "(%s)") $ '
+    export PS1='\$PERRY:\w\n$(__git_ps1 "(%s)") $ '
     umask 007
-
-    # show repository when in a git repo
-    function __my_ps1 {
-        if [[ -z $(git config prompt.ignore) ]];
-        then
-            __git_ps1 "$PS1_NO_GIT"
-        fi
-        #dot_clean -m ${PWD}
-    }
-    export PROMPT_COMMAND="__my_ps1; $PROMPT_COMMAND"
 fi
 
 # summit-specific things
