@@ -36,6 +36,7 @@ fi
 if [[ $HOME == /jet/home/mootimot ]]; then
     cp bashrc-master.bash ~/.bashrc
     cp bash_profile-master.bash ~/.bash_profile
+    module load anaconda3
     conda init bash
 fi
 
