@@ -67,6 +67,11 @@ then
     export BASH_SILENCE_DEPRECATION_WARNING=1
 fi
 
+# hodges-specific things
+if [[ $HOSTNAME == cheme-hodges ]]; then
+    export PS1='\$HODGES:\w\n$(__git_ps1 "(%s)") $ '
+fi
+
 # brett-specific stuff
 if [[ $HOSTNAME == brett.engin.umich.edu ]]; then
     export PS1='\$BRETT:\w\n$(__git_ps1 "(%s)") $ '
@@ -85,6 +90,7 @@ fi
 # bridges2-specific things
 if [[ $HOME == /jet/home/mootimot ]]; then
     export PS1='\$BRIDGES2:\w\n$(__git_ps1 "(%s)") $ '
+    alias cdscr="cd /ocean/projects/dmr170059p/mootimot/"    
     umask 007
     alias q="squeue -u mootimot -o \"%.9i %.16j %.2t %.10M %.6D %B\""
     alias cdp="cd /ocean/projects/dmr170059p/mootimot/"
@@ -95,14 +101,10 @@ fi
 if [[ $CLUSTER_NAME == greatlakes ]]; then
     export PS1='\$GREATLAKES:\w\n$(__git_ps1 "(%s)") $ '
     export MYSCRATCH='/scratch/sglotzer_root/sglotzer5/mtimc'
+    alias cdscr="cd /ocean/projects/dmr170059p/mootimot/"
     module use /home/mtimc/software/modules
     alias q="squeue -u mtimc -o \"%.9i %.16j %.2t %.10M %.6D\""
     conda activate default
-fi
-
-# hodges-specific things
-if [[ $HOSTNAME == cheme-hodges ]]; then
-    export PS1='\$HODGES:\w\n$(__git_ps1 "(%s)") $ '
 fi
 
 # perry-specific things
@@ -116,6 +118,7 @@ if [[ $LMOD_SYSTEM_NAME == summit ]]; then
     export PS1='\$SUMMIT:\w\n$(__git_ps1 "(%s)") $ '
     export BASH_ENV=/ccs/home/mtimc/.bashrc
     export MYSCRATCH=/gpfs/alpine/mat110/scratch/mtimc
+    alias cdscr="cd /gpfs/alpine/mat110/scratch/mtimc"
     module load git
     alias q='bjobs -u mtimc'
 fi
