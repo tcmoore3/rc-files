@@ -52,6 +52,7 @@ export BRIDGES2='mootimot@bridges2.psc.xsede.org'
 export SUMMIT='mtimc@summit.olcf.ornl.gov'
 export ANDES='mtimc@andes.olcf.ornl.gov'
 export HODGES='mtimc@cheme-hodges.engin.umich.edu'
+export DELTA='mootimot@dt-login01.delta.ncsa.illinois.edu'
 
 # aliases I use everywhere
 alias ls='ls -lh --color=auto'  # human readable, color coded ls
@@ -122,4 +123,10 @@ if [[ $LMOD_SYSTEM_NAME == summit ]]; then
     alias cdscr="cd /gpfs/alpine/mat110/scratch/mtimc"
     module load git
     alias q='bjobs -u mtimc'
+fi
+
+# delta-specific things
+if [[ $LMOD_SYSTEM_NAME == Delta ]]; then
+    export PS1='\$SUMMIT:\w\n$(__git_ps1 "(%s)") $ '
+    alias q='squeue -u mootimot'
 fi
