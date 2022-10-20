@@ -1,10 +1,6 @@
 " automatic reloading of .vimrc
 autocmd! bufwritepost .vimrc source %
 
-au BufNewFile,BufReadPre README set tw=70
-au BufNewFile,BufReadPre *.tex set textwidth=0 wrapmargin=0 linebreak
-au BufNewFile,BufReadPre *.pxi set tw=80
-autocmd BufNewFile,BufRead  *.cuh :set filetype=cpp
 let mysyntaxfile = "~/.vim/mysyntax.vim"
 syntax on
 filetype plugin on
@@ -13,11 +9,8 @@ let g:tex_flavor = "latex"
 
 " automatically save and load folds, from
 " http://vim.wikia.com/wiki/Make_views_automatic
-"autocmd BufWinLeave *.* mkview
-"autocmd BufWinEnter *.* silent loadview
-"
-" change some shit for vimlatex
-
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview
 
 highlight Normal ctermbg=black ctermfg=gray
 set ruler
@@ -40,7 +33,6 @@ set cinoptions={1s,f1s  " whitesmith C style indentations (hoomd)
 imap <S-Tab> <C-d>
 " tab to indent the line
 imap <Tab> <C-t>
-imap ;; <Esc>
 " use EE to go to end of file, change to insert mode
 map EE G$a<CR>
 
@@ -83,16 +75,20 @@ vnoremap > >gv
 set pastetoggle=<F2>
 set clipboard=unnamed
 
-autocmd FileType python colorscheme vividchalk_tcm
-autocmd FileType cpp colorscheme vividchalk_tcm
-autocmd FileType sh colorscheme vividchalk_tcm
-autocmd FileType vim colorscheme vividchalk_tcm
-autocmd FileType gitcommit colorscheme vividchalk_tcm
+autocmd FileType python colorscheme vitaminonec
+autocmd FileType cpp colorscheme vitaminonec
+autocmd FileType sh colorscheme vitaminonec
+autocmd FileType vim colorscheme vitaminonec
+autocmd FileType tex colorscheme vitaminonec
+autocmd FileType make colorscheme vitaminonec
+autocmd FileType gitcommit colorscheme vitaminonec
 autocmd FileType python highlight OverLength ctermbg=darkgray ctermfg=white
 autocmd FileType python match OverLength /\%81v.\+/
 autocmd FileType cpp highlight OverLength ctermbg=darkgray ctermfg=white
 autocmd FileType cpp match OverLength /\%121v.\+/
 
-" override search highlights
-" TODO: make cursor more visible on highlighted word
-highlight Search ctermfg=white ctermbg=darkgray
+" filetype-specific settings
+au BufNewFile,BufReadPre README set tw=70
+au BufNewFile,BufReadPre *.tex set textwidth=0 wrapmargin=0 linebreak wrap
+au BufNewFile,BufReadPre *.pxi set tw=80
+autocmd BufNewFile,BufRead  *.cuh :set filetype=cpp
