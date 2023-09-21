@@ -3,7 +3,14 @@ if [[ -f ~/.bashrc ]]; then
     . ~/.bashrc
 fi
 
-# stuff for my laptop
+if [[ $(hostname -s) == cheme-skubal ]];
+then
+    source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+    source /opt/homebrew/opt/chruby/share/chruby/auto.sh
+    chruby ruby-3.1.3
+fi
+
+
 if [[ $(hostname -s) == MacBook-Pro ]];
 then
     export PATH=/Applications/Ovito.app/Contents/MacOS:$PATH
