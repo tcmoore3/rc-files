@@ -3,12 +3,14 @@ if [[ -f ~/.bashrc ]]; then
     . ~/.bashrc
 fi
 
+# stuff for my laptop
 if [[ $(hostname -s) == MacBook-Pro ]];
 then
     export PATH=/Applications/Ovito.app/Contents/MacOS:$PATH
     export PATH="$HOME/.gem/ruby/2.6.0/bin:$PATH"
 fi
 
+# stuff for my desktop
 if [[ $HOSTNAME == perry.engin.umich.edu ]]; then
     export PATH=$PATH:/Applications/Ovito.app/Contents/MacOS/
 

@@ -36,7 +36,6 @@ fi
 if [[ $HOME == /jet/home/mootimot ]]; then
     cp bashrc-master.bash ~/.bashrc
     cp bash_profile-master.bash ~/.bash_profile
-    echo "source /opt/packages/anaconda3-2022.10/bin/activate my-base" >> ~/.bashrc
 fi
 
 # great-lakes

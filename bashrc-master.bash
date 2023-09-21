@@ -94,8 +94,6 @@ if [[ $HOME == /jet/home/mootimot ]]; then
     umask 007
     alias q="squeue -u mootimot -o \"%.9i %.16j %.2t %.10M %.6D %B\""
     alias cdp="cd /ocean/projects/dmr170059p/mootimot/"
-    module load anaconda3
-    conda activate my-base
 fi
 
 # great-lakes-specific things
