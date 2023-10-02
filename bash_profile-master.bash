@@ -10,6 +10,11 @@ then
     chruby ruby-3.1.3
 fi
 
+if [[ $(hostname -s) == cheme-kaline ]];
+then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 
 if [[ $(hostname -s) == MacBook-Pro ]];
 then

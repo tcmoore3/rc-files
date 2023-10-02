@@ -62,7 +62,7 @@ alias vi='vim'
 
 # MACHINE-SPECIFIC SETTINGS
 
-# laptop-specific things
+# laptop-specific things (2016 macbook pro (peter cummings's old laptop))
 if [[ $(hostname -s) == MacBook-Pro ]];
 then
     export PS1='\$MBP:\w\n$(__git_ps1 "(%s)") $ '
@@ -76,6 +76,11 @@ if [[ -f $HOME/.machine_tims_laptop ]]; then
     export PS1='\$SKUBAL:\w\n$(__git_ps1 "(%s)") $ '
     export BASH_SILENCE_DEPRECATION_WARNING=1
     export LSCOLORS=exgxcxdxcxegedabagacad
+    alias ls='ls -lhG'
+fi
+
+# kaline (mac mini desktop)
+if [[ $HOSTNAME == cheme-kaline.engin.umich.edu ]]; then
     alias ls='ls -lhG'
 fi
 
