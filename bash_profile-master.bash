@@ -30,3 +30,21 @@ if [[ $HOSTNAME == perry.engin.umich.edu ]]; then
     export PATH="/Users/mootimot/anaconda3/bin:$PATH"
 
 fi
+
+# bridges2-specific things
+if [[ $HOME == /jet/home/mootimot ]]; then
+    echo "Logged in to Bridges 2."
+    echo "Activate your base Python environment with the following commands:"
+    echo "  $ module load anaconda3/2022.10"
+    echo "  $ . /opt/packages/anaconda3-2022.10/bin/activate my-base"
+    echo ""
+fi
+
+# anvil-specific settings
+if [[ $RCAC_CLUSTER == anvil ]]; then
+    echo "Logged in to Anvil."
+    echo "Activate your base Python environment with the following commands:"
+    echo "  $ module load anaconda3/2022.10"
+    echo "  $ . /opt/packages/anaconda3-2022.10/bin/activate my-base"
+    echo ""
+fi
