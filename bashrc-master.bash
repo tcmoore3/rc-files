@@ -54,6 +54,8 @@ export SUMMIT='mtimc@summit.olcf.ornl.gov'
 export ANDES='mtimc@andes.olcf.ornl.gov'
 export HODGES='mtimc@cheme-hodges.engin.umich.edu'
 export DELTA='mootimot@dt-login01.delta.ncsa.illinois.edu'
+export KALINE='mtimc@cheme-kaline.engin.umich.edu'
+export ANVIL='x-mootimot@anvil.rcac.purdue.edu'
 
 # aliases I use everywhere
 alias ls='ls -lh --color=auto'  # human readable, color coded ls
@@ -117,9 +119,9 @@ fi
 if [[ $CLUSTER_NAME == greatlakes ]]; then
     export PS1='\$GREATLAKES:\w\n$(__git_ps1 "(%s)") $ '
     export MYSCRATCH='/scratch/sglotzer_root/sglotzer5/mtimc'
+    export MODULEPATH=/home/mtimc/software/modules:$MODULEPATH
     alias cdp='cd /scratch/sglotzer_root/sglotzer0/mtimc'
-    export MP_EDITOR=/usr/bin/vi
-    alias q="squeue -u mtimc -o \"%.9i %.16j %.2t %.10M %.6D\""
+    alias q="squeue -u mtimc -o \"%.9i %.30j %.2t %.10M %.6D\""
 fi
 
 # perry-specific things
