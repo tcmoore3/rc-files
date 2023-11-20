@@ -127,6 +127,6 @@ fi
 
 # delta-specific things
 if [[ $LMOD_SYSTEM_NAME == Delta ]]; then
-    export PS1='\$SUMMIT:\w\n$(__git_ps1 "(%s)") $ '
+    export PS1='\$DELTA:\w\n$(__git_ps1 "(%s)") $ '
     alias q='squeue -u mootimot'
 fi

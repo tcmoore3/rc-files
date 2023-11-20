@@ -65,3 +65,9 @@ if [[ $LMOD_SYSTEM_NAME == summit ]]; then
     cp bashrc-master.bash ~/.bashrc
     cp bash_profile-master.bash ~/.bash_profile
 fi
+
+# delta
+if [[ $LMOD_SYSTEM_NAME == Delta ]]; then
+    cp bashrc-master.bash ~/.bashrc
+    cp bash_profile-master.bash ~/.bash_profile
+fi
