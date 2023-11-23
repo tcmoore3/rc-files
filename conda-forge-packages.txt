@@ -15,6 +15,7 @@ pandoc
 pre-commit
 pytest
 rowan
+ruff
 scipy
 seaborn
 signac
