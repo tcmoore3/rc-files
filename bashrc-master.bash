@@ -79,6 +79,10 @@ if [[ -f $HOME/.machine_tims_laptop ]]; then
     export BASH_SILENCE_DEPRECATION_WARNING=1
     export LSCOLORS=exgxcxdxcxegedabagacad
     alias ls='ls -lhG'
+    combine_pdfs () {
+        echo "gs -dNOPAUSE -sDEVICE=pdfwrite -sOUTPUTFILE=<outputfilename> -dBATCH file1.pdf file2.pdf ..."
+    }
+
 fi
 
 # kaline (mac mini desktop)
