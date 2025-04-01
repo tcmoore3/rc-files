@@ -14,13 +14,13 @@ numpy
 pandoc
 pre-commit
 pytest
+row
 rowan
 ruff
 scipy
 seaborn
 signac
 signac-dashboard
-signac-flow
 sphinx
 tqdm
 yapf

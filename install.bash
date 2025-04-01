@@ -84,6 +84,7 @@ fi
 if [[ $HOSTNAME == cheme-kaline.engin.umich.edu ]]; then
     cp bashrc-master.bash ~/.bashrc
     cp bash_profile-master.bash ~/.bash_profile
+
 fi
 
 # purdue anvil
