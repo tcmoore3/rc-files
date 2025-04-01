@@ -5,6 +5,7 @@ furo
 gsd
 h5py
 ipython
+isort
 jupyterlab
 jupyterlab_vim
 mamba
