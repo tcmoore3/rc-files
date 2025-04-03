@@ -13,6 +13,8 @@ fi
 if [[ $(hostname -s) == cheme-kaline ]];
 then
     eval "$(/opt/homebrew/bin/brew shellenv)"
+    export PATH=/Users/mtimc/micromamba/bin:$PATH
+    eval "$(fzf --bash)"
 fi
 
 
