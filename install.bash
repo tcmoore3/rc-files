@@ -21,7 +21,16 @@ if [[ -f $HOME/.machine_tims_laptop ]]; then
     # add homebrew lines
     echo "# homebrew: make sure it's before conda" >> ~/.bash_profile
     echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.bash_profile
+    echo 'eval "$(fzf --bash)"' >> ~/.bash_profile
     conda init bash
+fi
+
+if [[ -f $HOME/.machine_cheme-paris ]]; then
+    cp bashrc-master.bash ~/.bashrc
+    cp bash_profile-master.bash ~/.bash_profile
+
+    # micromamba shell setup
+    ~/.local/bin/micromamba shell init -s bash -r ~/software/micromamba
 fi
 
 
