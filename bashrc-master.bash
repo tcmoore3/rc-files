@@ -83,12 +83,28 @@ if [[ -f $HOME/.machine_tims_laptop ]]; then
     combine_pdfs () {
         echo "gs -dNOPAUSE -sDEVICE=pdfwrite -sOUTPUTFILE=<outputfilename> -dBATCH file1.pdf file2.pdf ..."
     }
+    eval "$(fzf --bash)"
+
+fi
+
+# temporary UM laptop, named cheme-paris
+if [[ -f $HOME/.machine_cheme-paris ]]; then
+    export PS1='\$PARIS:\w\n$(__git_ps1 "(%s)") $ '
+    export BASH_SILENCE_DEPRECATION_WARNING=1
+    export LSCOLORS=exgxcxdxcxegedabagacad
+    alias ls='ls -lhG'
+    combine_pdfs () {
+        echo "gs -dNOPAUSE -sDEVICE=pdfwrite -sOUTPUTFILE=<outputfilename> -dBATCH file1.pdf file2.pdf ..."
+    }
+    eval "$(fzf --bash)"
 
 fi
 
 # kaline (mac mini desktop)
 if [[ $HOSTNAME == cheme-kaline.engin.umich.edu ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
     alias ls='ls -lhG'
+    eval "$(fzf --bash)"
 fi
 
 # hodges-specific things
