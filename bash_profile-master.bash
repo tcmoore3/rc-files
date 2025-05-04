@@ -1,8 +1,3 @@
-# source bashrc
-if [[ -f ~/.bashrc ]]; then
-    . ~/.bashrc
-fi
-
 if [[ $(hostname -s) == cheme-skubal ]];
 then
     source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
@@ -10,11 +5,14 @@ then
     chruby ruby-3.1.3
 fi
 
+if [[ -f $HOME/.machine_cheme-paris ]]; then
+    # set up homebrew shell integration
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 if [[ $(hostname -s) == cheme-kaline ]];
 then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
     export PATH=/Users/mtimc/micromamba/bin:$PATH
-    eval "$(fzf --bash)"
 fi
 
 
