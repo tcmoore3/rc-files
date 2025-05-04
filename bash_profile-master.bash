@@ -54,8 +54,10 @@ fi
 # anvil-specific settings
 if [[ $RCAC_CLUSTER == anvil ]]; then
     echo "Logged in to Anvil."
-    echo "Activate your base Python environment with the following commands:"
-    echo "  $ module load anaconda/2021.05-py38"
-    echo "  $ . /apps/spack/anvil/apps/anaconda/2021.05-py38-gcc-8.4.1-vrzyh2x/bin/activate my-base"
     echo ""
+    echo "For python, use ~/miniforge/bin/python."
+    echo "Optionally, add ~/miniforge/bin to the path."
+    echo "It's probably also a good idea to add ~/.cargo/bin to the path."
+    echo "Add both to PATH with:"
+    echo '  export PATH=~/miniforge3/bin:~/.cargo/bin:$PATH'
 fi

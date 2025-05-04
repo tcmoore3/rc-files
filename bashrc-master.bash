@@ -169,7 +169,7 @@ fi
 # delta-specific things
 if [[ $LMOD_SYSTEM_NAME == Delta ]]; then
     export PS1='\$DELTA:\w\n$(__git_ps1 "(%s)") $ '
-    alias q='squeue -u x-mootimot'
+    alias q='squeue -u mootimot'
     alias cdp='cd /scratch/bbgw/mootimot/'
 fi
 
@@ -177,5 +177,5 @@ fi
 if [[ $RCAC_CLUSTER == anvil ]]; then
     export PS1='\$ANVIL:\w\n$(__git_ps1 "(%s)") $ '
     alias cdp='cd /anvil/scratch/x-mootimot'
-    alias q="squeue -u mootimot -o \"%.9i %.30j %.2t %.10M %.6D %B\""
+    alias q="squeue -u x-mootimot -o \"%.9i %.30j %.2t %.10M %.6D %B\""
 fi
