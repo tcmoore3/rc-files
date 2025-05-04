@@ -8,6 +8,17 @@ fi
 if [[ -f $HOME/.machine_cheme-paris ]]; then
     # set up homebrew shell integration
     eval "$(/opt/homebrew/bin/brew shellenv)"
+
+    # set ENV to ~/.bashrc since kitty starts bash in posix mode which 
+    # doesn't read ~/.bashrc by default but instead reads the file pointed
+    # to by the environment variable $ENV
+    export ENV=~/.bashrc
+
+    export PATH=/Users/mtimc/software/micromamba/bin:$PATH
+    . "$HOME/.cargo/env"
+    if [[ $- == *"$i"* ]]; then
+        . ~/.bashrc
+    fi
 fi
 
 if [[ $(hostname -s) == cheme-kaline ]];
