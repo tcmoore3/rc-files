@@ -1,94 +1,438 @@
-" automatic reloading of .vimrc
-autocmd! bufwritepost .vimrc source %
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-plugin plugin manager
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+call plug#begin()
 
-let mysyntaxfile = "~/.vim/mysyntax.vim"
-syntax on
-filetype plugin on
-filetype indent plugin on
-let g:tex_flavor = "latex"
+" filesystem-related plugins (git, fzf, etc...)
+Plug 'junegunn/fzf'  " fuzzy finder
+Plug 'junegunn/fzf.vim'  " fuzzy finder in vim
+Plug 'tpope/vim-fugitive'  " for git in vim
+Plug 'preservim/nerdtree'  " file tree explorer
+Plug 'Xuyuanp/nerdtree-git-plugin'  " show git stati in nerdtree window
+Plug 'preservim/tagbar'  " for navigating codebases by class, function, etc...
 
-" automatically save and load folds, from
-" http://vim.wikia.com/wiki/Make_views_automatic
-autocmd BufWinLeave *.* mkview
-autocmd BufWinEnter *.* silent loadview
+" dev/compiler-related
+Plug 'dense-analysis/ale'  " realtime linting, fixing, etc...
+Plug 'rust-lang/rust.vim'
 
-highlight Normal ctermbg=black ctermfg=gray
-set ruler
-set expandtab 
+" for statusline formatting and theme
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" python folding
+Plug 'tmhedberg/simpylfold'
+
+" better note-taking in vim
+Plug 'xolox/vim-notes'
+Plug 'xolox/vim-misc'
+
+" miscellaneous
+Plug 'junegunn/seoul256.vim'  " colors
+Plug 'tpope/vim-commentary'  " easier commenting
+
+call plug#end()
+
+"""""""""""""""""""""""""
+" generic settings
+"""""""""""""""""""""""""
+
+" set mapleader and set C_MapLeader
+let mapleader = ","
+let C_MapLeader = ","
+
+" use my actual shell
+if len(split(globpath('~', '.machine_cheme-paris')))
+    set shell=/opt/homebrew/bin/bash
+endif
+
+" be iMproved, required
+set nocompatible
+
+" expand tab keypresses into the appropriate number of spaces
+set expandtab
+
+" set width of indents. almost always 4
+" this is the generic setting, override for specific filetypes in after/syntax
 set shiftwidth=4
+
+" show commands in the last line of the screen
 set showcmd
-set tabstop=4
-set wrapmargin=2
+
+" let lowercase match lower and uppercase (ignore case) but uppercase only
+" matches uppercase (smartcase)
 set ignorecase
-set guioptions=agirLM"mT 
-" disable bells
-set vb t_vb= 
-"set mouse=a
-set autoindent 
-set nu
+set smartcase
+
+" highlight matches to previous search pattern
+nnoremap * :let @/ = "\\<<C-R><C-W>\\>"<CR>
 set hlsearch
-set cinoptions={1s,f1s  " whitesmith C style indentations (hoomd)
- 
-" shift tab to reverse indent
-imap <S-Tab> <C-d>
-" tab to indent the line
-imap <Tab> <C-t>
-" use EE to go to end of file, change to insert mode
-map EE G$a<CR>
 
-" " disable arrow keys, first in normal mode...
-" noremap <Up> <NOP>
-" noremap <Down> <NOP>
-" noremap <Left> <NOP>
-" noremap <Right> <NOP>
-" " ...and also in input mode
-" inoremap <Up> <NOP>
-" inoremap <Down> <NOP>
-" inoremap <Left> <NOP>
-" inoremap <Right> <NOP>
+" show matches to search while typing
+set incsearch
 
-set wildmode=longest,list,full
+" disable bells
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+" disable use of mouse. i don't like how the mouse switches the mode.
+" setting mouse= still allows me to select text to copy to the system
+" clipboard
+set mouse=
+
+" match indent of previous line
+set autoindent
+
+" show line numbesr
+set number
+
+" whitesmith C style indentations (hoomd's preferred style)
+set cinoptions={1s,f1s,e1s
+
+" enable syntax highlighting
+syntax on
+
+" set indents and plugins by filetype
+filetype indent plugin on
+
+" set style for "Normal" text
+highlight Normal ctermbg=black ctermfg=gray
+
+" for highlighting overly long lines
+highlight OverLength ctermbg=darkgray ctermfg=white
+
+
+" how to handle tab autocompletion
+set wildmode=list:longest,full
 set wildmenu
 
-" quicksave 
-noremap <C-Z> :update<CR>
-vnoremap <C-Z> <C-C>:update<CR>
-inoremap <C-Z> <C-O>:update<CR>
+" toggle paste key
+set pastetoggle=<F2>
 
-" Rebind <Leader> key
-let mapleader=","
+" save yank delete and change texts normally sent to unnamed register
+set clipboard=unnamed
 
-" to move around windows
-map <c-j> <c-w>j
-map <c-k> <c-w>k
-map <c-l> <c-w>l
-map <c-h> <c-w>h
+" set which options are saved with mkview
+set viewoptions=cursor
+
+" open new vsplit windows on right and split windows below
+set splitright
+set splitbelow
+
+""" settings related to wrapping
+"" these settings make it so that vim will not insert any newlines into a file, and only soft (i.e., visual) wrapping will occur
+set textwidth=0
+set wrapmargin=0
+set wrap
+" insert soft wrap between words instead of between letters in the same word
+set linebreak
+
+" allow backspacing over start of newly inserted text
+set bs=2
+
+" control character displayed before wrapped lines
+" use let instead of set to use the string literal
+let &showbreak = '> '
+
+" automatically reload files when they change
+set autoread
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" keymappings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" jump out of current block with
+" useful for c/c++ files where closing braces are automatically inserted
+inoremap <leader><leader>j <esc>]}o
+" should also be useful in normal mode (e.g., after deleting a line or
+" something)
+nnoremap <leader><leader>j ]}o
+
+" shift tab to reverse indent
+inoremap <S-Tab> <C-d>
+" tab to indent the line
+inoremap <Tab> <C-t>
+" use EE to go to end of file, change to insert mode
+noremap EE G$a<CR>
+
+" disable arrow keys to train fingers to use hjkl, first in normal mode...
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+" ...and in input mode
+inoremap <Up> <NOP>
+inoremap <Down> <NOP>
+inoremap <Left> <NOP>
+inoremap <Right> <NOP>
+
+" quicksave
+nnoremap <Leader>w :update<cr>
+vnoremap <Leader>w :update<cr>
+nnoremap <C-S> :update<CR>
+inoremap <C-S> <C-O>:update<CR>
+" train fingers to only use fast save by mapping normal save keystrokes to nop
+nnoremap :w<cr> :echo "File NOT saved. Use <leader>w instead to save."<cr>
+
+" make spacebar do nothing in normal mode
+nnoremap <SPACE> <NOP>
+
+" i get annoyed when ; moves the cursor around in normal mode: remove that
+" mapping
+nnoremap ; <NOP>
+
+" let <leader>; exit insert mode
+" i had i liked having it as ;;, but that get's annoying when you want to
+" exit insert mode after inserting a ; in a c++ file (which is a lot because
+" that's how you end lines in c++ and you would almost never type ,;).
+inoremap <leader>; <Esc>
+" and visual mode
+vnoremap <leader>; <Esc>
+
+" use ctrl-hjkl to move around windows
+nnoremap <silent> <c-h> :wincmd h<CR>
+nnoremap <silent> <c-j> :wincmd j<CR>
+nnoremap <silent> <c-k> :wincmd k<CR>
+nnoremap <silent> <c-l> :wincmd l<CR>
 
 " easier moving between tabs
-map <Leader>n <esc>:tabprevious<CR>
-map <Leader>m <esc>:tabnext<CR>
+noremap <Leader>n <esc>:tabprevious<CR>
+noremap <Leader>m <esc>:tabnext<CR>
 
 " easier indenting of blocks
 vnoremap < <gv
 vnoremap > >gv
 
-set pastetoggle=<F2>
-set clipboard=unnamed
+" quickly ruff format current file
+nnoremap <Leader>rfmt :update<cr>:!ruff format %<cr>
 
-autocmd FileType python colorscheme vitaminonec
-autocmd FileType cpp colorscheme vitaminonec
-autocmd FileType sh colorscheme vitaminonec
-autocmd FileType vim colorscheme vitaminonec
-autocmd FileType tex colorscheme vitaminonec
-autocmd FileType make colorscheme vitaminonec
-autocmd FileType gitcommit colorscheme vitaminonec
-autocmd FileType python highlight OverLength ctermbg=darkgray ctermfg=white
-autocmd FileType python match OverLength /\%81v.\+/
-autocmd FileType cpp highlight OverLength ctermbg=darkgray ctermfg=white
-autocmd FileType cpp match OverLength /\%121v.\+/
+" help break habit of hitting esc to exit insert mode
+inoremap <ESC> <NOP>
+" and visual mode
+vnoremap <ESC> <NOP>
 
-" filetype-specific settings
-au BufNewFile,BufReadPre README set tw=70
-au BufNewFile,BufReadPre *.tex set textwidth=0 wrapmargin=0 linebreak wrap
-au BufNewFile,BufReadPre *.pxi set tw=80
+" toggle search highlighting
+nnoremap <leader>hl :set hlsearch!<cr>
+
+" clear search string
+nnoremap <leader>cls :let @/ = ""<CR>
+
+" quickly open NERDTree with ctrl-n and Tagbar with ctrl-m
+nnoremap <C-n> :NERDTreeToggle<CR>
+nnoremap <C-m> :TagbarToggle f<CR>
+
+" stay on current word with * search
+nnoremap * :keepjumps normal! mi*`i<CR>
+
+" do not show fileformat output in airline statusline
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.notexists = ' ?'
+let g:airline_symbols.branch = '⎇ '
+let g:airline_symbols.dirty = '(*)'
+let g:airline_symbols.colnr = ': '
+let g:airline_symbols.linenr = ' = '
+let g:airline_symbols.maxlinenr = ' '
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Autocommands
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" automatically source .vimrc when it's saved (useful for changes to take
+" place when editing the .vimrc file
+
+" autocmd bufwritepost .vimrc silent source %
+
+" automatically save and load folds, from
+" http://vim.wikia.com/wiki/Make_views_automatic
+" this can be annoying if somehow folds got messed up since it shows a red
+" error message on the screen
+" I added this when i was trying to set folds manually.
+" maybe if i get a better folding engine i can get rid of it and let the
+" engine handle the folding.
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview
+
+"" treat cuda files like cpp
 autocmd BufNewFile,BufRead  *.cuh :set filetype=cpp
+autocmd BufNewFile,BufRead  *.cu :set filetype=cpp
+
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists('s:stsd_in') | NERDTree | endif
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
+    \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
+
+" highlighting long lines in different filetypes
+autocmd BufEnter *.py :match OverLength /\%89v.\+/
+autocmd BufEnter *.c,*.h,*.cpp,*.cc,*.hpp,*.cu,*.cuh :match OverLength /\%111v.\+/
+
+""""""""""""""""""""""""""""""""""""""
+"""" IDEAS FOR USEFUL COMMANDS """""""
+""""""""""""""""""""""""""""""""""""""
+" These are descriptions of commands that would be useful but that I haven't
+" taken the time to work out the vimscript for
+""""""""""""""""""""""""""""""""""""""
+"
+" add parenthesis (or any other type of bracket) around a visual selection
+"
+" remove the innermost set of parentheses or other brackets
+
+
+""" Color-related settings """
+let g:gruvbox_bold=0
+let g:gruvbox_italic=1
+let g:gruvbox_contrast_dark='hard'
+let g:gruvbox_hls_cursor='blue'
+set background=dark
+colorscheme gruvbox
+hi Search ctermfg=109
+hi pythonBuiltin ctermfg=67
+hi pythonDecoratorName ctermfg=101
+hi pythonDecorator ctermfg=102
+hi Normal ctermfg=249
+hi Normal ctermbg=234
+hi Comment ctermfg=242
+hi pythonEscape ctermfg=65
+hi vimNotation ctermfg=65
+hi vimMapMod ctermfg=65
+hi vimMapModKey ctermfg=65
+hi vimBracket ctermfg=65
+hi String ctermfg=143
+hi markdownH1 ctermfg=172
+hi markdownH2 ctermfg=172
+hi markdownH3 ctermfg=172
+hi markdownHeadingDelimiter ctermfg=172
+hi tomlTableArray ctermfg=31
+hi tomlTable ctermfg=31
+hi rustCommentLineDoc ctermfg=242
+hi MatchParen ctermbg=248 ctermfg=232
+hi VertSplit ctermfg=240
+hi StatusLineNC ctermfg=240
+hi StatusLine ctermbg=254 ctermfg=23
+hi Folded ctermbg=236
+hi link texRefZone GruvboxBlue
+hi link texTypeStyle GruvboxBlue
+hi link texInputFile Normal
+hi link texLigature Normal
+hi link texDelimiter Normal
+let g:airline_theme="bubblegum"
+
+""""""""""""""""""""""""""""""""""""""
+"""" FROM LEARNVIMSCRIPTTHEHARDWAY """
+""""""""""""""""""""""""""""""""""""""
+
+" move current line down 1 in normal mode with -
+nnoremap <Leader>- dd p
+
+" move current line up 1 in normal mode with _
+nnoremap <Leader>_ ddkP
+
+" capitalize the current word with ctrl-u in insert mode
+inoremap <Leader><c-u> <esc>viwUea
+
+" capitalize the current word wtih ctrl-u in normal mode, keeping cursor
+" position unchanged
+nnoremap <Leader><c-u> mpviwU`p
+
+" open vimrc file in split window
+nnoremap <Leader>ev :split $MYVIMRC<cr>
+
+" source vimrc file
+nnoremap <Leader>sv silent source $MYVIMRC<cr>:echo "Sourced" $MYVIMRC<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Sandbox settings
+" Settings here are meant to be temporary while I test them out.
+" Move them to the appropriate section above if I decide that I like them.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"set laststatus=2
+"set statusline=
+""set statusline+=%#CursorLine#
+""set statusline+=%{StatuslineGit()}
+"set statusline+=\ %f
+"set statusline+=%m
+"set statusline+=%=
+""set statusline+=%#CursorLine#
+"set statusline+=\ %Y
+""set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+""set statusline+=\[%{&fileformat}\]
+"set statusline+=\ %p%%
+"set statusline+=\ %l:%c
+""set statusline+=\ %{wordcount()['words']}
+
+" itt = Insert Talk Template: useful for editing markdown files to take notes during a talk
+nnoremap <leader>itt o<cr>## Presenter, title, group, etc...<cr>- **Main question:** <cr>- **Key takeaway:** <cr>- <esc>kkkwv$h
+
+" find and replace: searches for word under string and puts cursor in position for replacement text
+nnoremap <leader>fr * :%s///g<left><left>
+
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ALE settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Only run linters that I specify
+let g:ale_linters_explicit = 1
+" set up clang-format
+let g:ale_c_clangformat_executable = '/opt/homebrew/bin/clang-format'
+let g:ale_c_clangformat_options = '-i --verbose'
+let g:ale_c_clangformat_use_local_file = 1
+
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 1
+let g:ale_fix_on_save = 1
+
+" use clang-format's native vim-integration
+let g:clang_format_path = '/opt/homebrew/bin/clang-format'
+function ClangFormat(buffer)
+  let l:lines="all"
+  if has('python')
+    pyf /Users/mtimc/.vim/clang-format.py
+  elseif has('python3')
+    py3f /Users/mtimc/.vim/clang-format.py
+  endif
+endfunction
+if has('python3')
+    noremap <leader>fmt :py3f /opt/homebrew/Cellar/clang-format/20.1.3/share/clang/clang-format-diff.py<cr>
+    noremap <leader>fmta :call ClangFormat()<cr>
+endif
+
+execute ale#fix#registry#Add('myclangformat', 'ClangFormat', ['c', 'cpp'], 'native clang-format integration into vim')
+let g:ale_fixers = {
+\   'python': ['ruff', 'ruff_format', 'isort', 'trim_whitespace'],
+\   'cpp': ['myclangformat', 'trim_whitespace'],
+\   'cc': ['myclangformat', 'trim_whitespace'],
+\   'c': ['myclangformat', 'trim_whitespace'],
+\   'h': ['myclangformat', 'trim_whitespace'],
+\   'hpp': ['myclangformat', 'trim_whitespace'],
+\   'rust': ['rustfmt'],
+\   'tex': ['trim_whitespace', 'remove_trailing_lines'],
+\}
+
+
+" setup clangd with ale
+let g:ale_cpp_clangd_executable = '/usr/bin/clangd'
+let g:ale_c_clangd_executable = '/usr/bin/clangd'
+let g:ale_pattern_options_enabled = 0
+" let g:ale_pattern_options = { '\.h$': { 'ale_linters': { 'cpp' : ['clangd'] } } }
+let cpp_opts = '--std=c++20 -Wall -Wextra'
+let g:ale_linters = { 'cpp': ['clangd', ], 'c': ['clangd',], 'cc': ['clangd', ], 'h': ['clangd', ], 'hpp': ['clangd', ], 'rust': ['cargo'], 'python': ['ruff'], 'tex': ['chktex']}
+let g:ale_cpp_cc_options = cpp_opts
+let g:ale_cpp_gcc_options = cpp_opts
+let g:ale_cpp_clang_options = cpp_opts
+let g:ale_python_ruff_options = '--force-exclude'
+let g:ale_python_ruff_format_options = '--force-exclude'
+let g:ale_python_isort_options = ''
+let g:ale_set_balloons = 1
+
+
+
+nnoremap <C-J> :ALENextWrap<CR>
+nnoremap <C-K> :ALEPreviousWrap<CR>
+let g:NERDTreeWinSize=40
