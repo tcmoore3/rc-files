@@ -48,6 +48,9 @@ endif
 " be iMproved, required
 set nocompatible
 
+" always show line and column in window
+set ruler
+
 " expand tab keypresses into the appropriate number of spaces
 set expandtab
 
@@ -95,6 +98,9 @@ syntax on
 
 " set indents and plugins by filetype
 filetype indent plugin on
+
+" used for vim-latex
+let g:tex_flavor = "latex"
 
 " set style for "Normal" text
 highlight Normal ctermbg=black ctermfg=gray
@@ -243,8 +249,7 @@ let g:airline_symbols.maxlinenr = ' '
 
 " automatically source .vimrc when it's saved (useful for changes to take
 " place when editing the .vimrc file
-
-" autocmd bufwritepost .vimrc silent source %
+autocmd! bufwritepost .vimrc source %
 
 " automatically save and load folds, from
 " http://vim.wikia.com/wiki/Make_views_automatic
@@ -341,7 +346,7 @@ nnoremap <Leader><c-u> mpviwU`p
 nnoremap <Leader>ev :split $MYVIMRC<cr>
 
 " source vimrc file
-nnoremap <Leader>sv silent source $MYVIMRC<cr>:echo "Sourced" $MYVIMRC<cr>
+nnoremap <Leader>sv :silent source $MYVIMRC<cr>:echo "Sourced" $MYVIMRC<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Sandbox settings
