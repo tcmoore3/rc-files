@@ -1,4 +1,50 @@
 ### MATPLOTLIBRC FORMAT
+#
+#
+# changes to get things looking like the "pacota" style from github.com/dhaitz/matplotlib-stylesheets, which itself resembles seaborn darkgrid
+figure.facecolor: white
+text.color: .15
+axes.labelcolor: .15
+legend.frameon: True
+legend.framealpha: 0.9
+legend.numpoints: 1
+legend.scatterpoints: 1
+xtick.direction: in
+ytick.direction: in
+
+axes.axisbelow: True
+font.family: sans-serif
+grid.linestyle: -
+lines.solid_capstyle: round
+
+# Seaborn darkgrid parameters
+axes.grid: True
+axes.facecolor: EAEAF2
+axes.edgecolor: 777777
+axes.linewidth: 0.7
+axes.spines.top: False
+axes.spines.right: False
+grid.color: white
+grid.alpha: 1.0
+xtick.major.size: 0
+ytick.major.size: 0
+xtick.minor.size: 0
+ytick.minor.size: 0
+
+# Fonts
+font.sans-serif: Helvetica, Helvetica Neue, Arial, Liberation Sans, DejaVu Sans, Bitstream Vera Sans, sans-serif
+axes.prop_cycle: cycler('color', ['5A5B9F', 'D94F70', '009473', 'F0C05A', '7BC4C4', 'FF6F61'])
+image.cmap: RdPu
+
+
+# my other changes
+backend      : MacOSX
+legend.fontsize      : 12
+savefig.transparent : True      # setting that controls whether figures are saved with a
+axes.labelsize      : 16  # fontsize of the x any y labels
+axes.labelweight    : 550  # weight of the x and y labels
+xtick.labelsize      : 10 # fontsize of the tick labels
+ytick.labelsize      : 10 # fontsize of the tick labels
 
 # This is a sample matplotlib configuration file - you can find a copy
 # of it on your system in
@@ -35,7 +81,6 @@
 # You can also deploy your own backend outside of matplotlib by
 # referring to the module name (which must be in the PYTHONPATH) as
 # 'module://my_backend'.
-backend      : Agg
 
 # If you are using the Qt4Agg backend, you can choose here
 # to use the PyQt4 bindings or the newer PySide bindings to
@@ -193,7 +238,6 @@ backend      : Agg
 # The font.size property is the default font size for text, given in pts.
 # 10 pt is the standard value.
 #
-font.family         : sans-serif
 #font.style          : normal
 #font.variant        : normal
 #font.weight         : medium
@@ -205,7 +249,6 @@ font.family         : sans-serif
 # small, medium, large, x-large, xx-large, larger, or smaller
 #font.size           : 10.0
 #font.serif          : DejaVu Serif, Bitstream Vera Serif, New Century Schoolbook, Century Schoolbook L, Utopia, ITC Bookman, Bookman, Nimbus Roman No9 L, Times New Roman, Times, Palatino, Charter, serif
-font.sans-serif     : Helvetica, DejaVu Sans, Bitstream Vera Sans, Lucida Grande, Verdana, Geneva, Lucid, Arial, Helvetica, Avant Garde, sans-serif
 #font.cursive        : Apple Chancery, Textile, Zapf Chancery, Sand, Script MT, Felipa, cursive
 #font.fantasy        : Comic Sans MS, Chicago, Charcoal, Impact, Western, Humor Sans, xkcd, fantasy
 #font.monospace      : DejaVu Sans Mono, Bitstream Vera Sans Mono, Andale Mono, Nimbus Mono L, Courier New, Courier, Fixed, Terminal, monospace
@@ -293,14 +336,10 @@ font.sans-serif     : Helvetica, DejaVu Sans, Bitstream Vera Sans, Lucida Grande
 # default fontsizes for ticklabels, and so on.  See
 # http://matplotlib.org/api/axes_api.html#module-matplotlib.axes
 #axes.facecolor      : white   # axes background color
-axes.edgecolor      : b0b0b0   # axes edge color
 #axes.linewidth      : 0.8     # edge linewidth
-axes.grid           : True   # display grid or not
 #axes.titlesize      : large   # fontsize of the axes title
 #axes.titlepad       : 6.0     # pad between axes and title in points
-axes.labelsize      : 16  # fontsize of the x any y labels
 #axes.labelpad       : 4.0     # space between label and axis
-axes.labelweight    : 550  # weight of the x and y labels
 #axes.labelcolor     : black
 #axes.axisbelow      : 'line'  # draw axis gridlines and ticks below
                                # patches (True); above patches but below
@@ -337,7 +376,7 @@ axes.labelweight    : 550  # weight of the x and y labels
 #axes.prop_cycle    : cycler('color',
 #['000000', 'FF6A6A', '6495ED', 'FFA500',
 #'EEC900', '9A32CD', 'FFB6C1'])
-axes.prop_cycle : cycler('color', ['505050', 'FF6A6A', '6495ed', 'ffa500', 'eec900', '9a32cd', 'ffb6c1'])
+# axes.prop_cycle : cycler('color', ['505050', 'FF6A6A', '6495ed', 'ffa500', 'eec900', '9a32cd', 'ffb6c1'])
 #axes.autolimit_mode : data # How to scale axes limits to the data.
                             # Use "data" to use data limits, plus some margin
                             # Use "round_number" move to the nearest "round" number
@@ -368,15 +407,12 @@ axes.prop_cycle : cycler('color', ['505050', 'FF6A6A', '6495ed', 'ffa500', 'eec9
 # see http://matplotlib.org/api/axis_api.html#matplotlib.axis.Tick
 #xtick.top            : False   # draw ticks on the top side
 #xtick.bottom         : True   # draw ticks on the bottom side
-xtick.major.size     : 0      # major tick size in points
 #xtick.minor.size     : 2      # minor tick size in points
 #xtick.major.width    : 0.8    # major tick width in points
 #xtick.minor.width    : 0.6    # minor tick width in points
 #xtick.major.pad      : 3.5      # distance to major tick label in points
 #xtick.minor.pad      : 3.4      # distance to the minor tick label in points
 #xtick.color          : k      # color of the tick labels
-xtick.labelsize      : 10 # fontsize of the tick labels
-xtick.direction      : in    # direction: in, out, or inout
 #xtick.minor.visible  : False  # visibility of minor ticks on x-axis
 #xtick.major.top      : True   # draw x axis top major ticks
 #xtick.major.bottom   : True   # draw x axis bottom major ticks
@@ -385,14 +421,12 @@ xtick.direction      : in    # direction: in, out, or inout
 
 #ytick.left           : True   # draw ticks on the left side
 #ytick.right          : False  # draw ticks on the right side
-ytick.major.size     : 0      # major tick size in points
 #ytick.minor.size     : 2      # minor tick size in points
 #ytick.major.width    : 0.8    # major tick width in points
 #ytick.minor.width    : 0.6    # minor tick width in points
 #ytick.major.pad      : 3.5      # distance to major tick label in points
 #ytick.minor.pad      : 3.4      # distance to the minor tick label in points
 #ytick.color          : k      # color of the tick labels
-ytick.labelsize      : 10 # fontsize of the tick labels
 #ytick.direction      : in    # direction: in, out, or inout
 #ytick.minor.visible  : False  # visibility of minor ticks on y-axis
 #xtick.major.left     : True   # draw y axis left major ticks
@@ -402,8 +436,6 @@ ytick.labelsize      : 10 # fontsize of the tick labels
 
 
 ### GRIDS
-grid.color       :   b0b0b0    # grid color
-grid.linestyle   :   :         # solid
 #grid.linewidth   :   0.8       # in points
 #grid.alpha       :   1.0       # transparency, between 0.0 and 1.0
 
@@ -419,7 +451,6 @@ grid.linestyle   :   :         # solid
 #legend.numpoints     : 1        # the number of marker points in the legend line
 #legend.scatterpoints : 1        # number of scatter points
 #legend.markerscale   : 1.0      # the relative size of legend markers vs. original
-legend.fontsize      : 12
 # Dimensions as fraction of fontsize:
 #legend.borderpad     : 0.4      # border whitespace
 #legend.labelspacing  : 0.5      # the vertical space between the legend entries
@@ -525,7 +556,6 @@ legend.fontsize      : 12
 #savefig.jpeg_quality: 95       # when a jpeg is saved, the default quality parameter.
 #savefig.directory   : ~        # default directory in savefig dialog box,
                                 # leave empty to always use current working directory
-savefig.transparent : True      # setting that controls whether figures are saved with a
                                 # transparent background by default
 
 # tk backend params
