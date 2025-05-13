@@ -342,11 +342,11 @@ inoremap <Leader><c-u> <esc>viwUea
 " position unchanged
 nnoremap <Leader><c-u> mpviwU`p
 
+" source vimrc file
+nnoremap <Leader>sv :source $MYVIMRC<cr> :echo "Sourced" $MYVIMRC<cr>
+
 " open vimrc file in split window
 nnoremap <Leader>ev :split $MYVIMRC<cr>
-
-" source vimrc file
-nnoremap <Leader>sv :silent source $MYVIMRC<cr>:echo "Sourced" $MYVIMRC<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Sandbox settings
