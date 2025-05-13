@@ -163,6 +163,12 @@ if len(split(globpath('~', '.machine_cheme-paris')))
     let g:ale_c_clangformat_executable = '/opt/homebrew/bin/clang-format'
 endif
 
+
+" ncsa-delta
+if len(split(globpath('~', '.machine-delta')))
+    set shell=/usr/bin/bash
+endif
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " keymappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -313,7 +319,7 @@ colorscheme gruvbox
 highlight OverLength ctermbg=darkgray ctermfg=white
 
 hi Normal ctermfg=249 ctermbg=234
-hi Search ctermfg=19
+hi Search ctermfg=109
 hi pythonBuiltin ctermfg=67
 hi pythonDecoratorName ctermfg=101
 hi pythonDecorator ctermfg=102
