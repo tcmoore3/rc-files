@@ -92,7 +92,9 @@ if [[ -f $HOME/.machine_cheme-paris ]]; then
     export PS1='\$PARIS:\w\n$(__git_ps1 "(%s)") $ '
     export BASH_SILENCE_DEPRECATION_WARNING=1
     export LSCOLORS=exgxcxdxcxegedabagacad
+    export VIMRUNTIME=/Users/mtimc/software/micromamba/share/vim/vim91
     alias ls='ls -lhG'
+    alias ssp='signac statepoint -p --'
 
     # combine pdfs into a single pdf
     combine_pdfs () {
