@@ -1,3 +1,16 @@
+""""""""""""""""""""""""""""""""""""""
+"""" IDEAS FOR USEFUL COMMANDS """""""
+""""""""""""""""""""""""""""""""""""""
+" These are descriptions of commands that would be useful but that I haven't
+" taken the time to work out the vimscript for
+""""""""""""""""""""""""""""""""""""""
+"
+" add parenthesis (or any other type of bracket) around a visual selection
+"
+" remove the innermost set of parentheses or other brackets
+
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-plugin plugin manager
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -40,11 +53,6 @@ call plug#end()
 let mapleader = ","
 let C_MapLeader = ","
 
-" use my actual shell
-if len(split(globpath('~', '.machine_cheme-paris')))
-    set shell=/opt/homebrew/bin/bash
-endif
-
 " be iMproved, required
 set nocompatible
 
@@ -66,8 +74,10 @@ set showcmd
 set ignorecase
 set smartcase
 
-" highlight matches to previous search pattern
+" stay on current word and do not jump to next instance when searching with "*" 
 nnoremap * :let @/ = "\\<<C-R><C-W>\\>"<CR>
+
+" highlight matches to previous search pattern
 set hlsearch
 
 " show matches to search while typing
@@ -101,13 +111,6 @@ filetype indent plugin on
 
 " used for vim-latex
 let g:tex_flavor = "latex"
-
-" set style for "Normal" text
-highlight Normal ctermbg=black ctermfg=gray
-
-" for highlighting overly long lines
-highlight OverLength ctermbg=darkgray ctermfg=white
-
 
 " how to handle tab autocompletion
 set wildmode=list:longest,full
@@ -143,6 +146,22 @@ let &showbreak = '> '
 
 " automatically reload files when they change
 set autoread
+
+"""""""""""""""""""""""""""
+" machine-specific settings
+"""""""""""""""""""""""""""
+
+" laptop
+if len(split(globpath('~', '.machine_cheme-paris')))
+    " use the correct shell
+    set shell=/opt/homebrew/bin/bash
+
+    " set paths to clangd etc
+    let g:ale_cpp_clangd_executable = '/usr/bin/clangd'
+    let g:ale_c_clangd_executable = '/usr/bin/clangd'
+    let g:clang_format_path = '/opt/homebrew/bin/clang-format'
+    let g:ale_c_clangformat_executable = '/opt/homebrew/bin/clang-format'
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " keymappings
@@ -274,31 +293,30 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in
 autocmd BufEnter *.py :match OverLength /\%89v.\+/
 autocmd BufEnter *.c,*.h,*.cpp,*.cc,*.hpp,*.cu,*.cuh :match OverLength /\%111v.\+/
 
-""""""""""""""""""""""""""""""""""""""
-"""" IDEAS FOR USEFUL COMMANDS """""""
-""""""""""""""""""""""""""""""""""""""
-" These are descriptions of commands that would be useful but that I haven't
-" taken the time to work out the vimscript for
-""""""""""""""""""""""""""""""""""""""
-"
-" add parenthesis (or any other type of bracket) around a visual selection
-"
-" remove the innermost set of parentheses or other brackets
 
 
-""" Color-related settings """
+""""""""""""""""""""""""""
+" Color-related settings " 
+""""""""""""""""""""""""""
+
+" change some of the gruvbox defaults
 let g:gruvbox_bold=0
 let g:gruvbox_italic=1
 let g:gruvbox_contrast_dark='hard'
 let g:gruvbox_hls_cursor='blue'
 set background=dark
+
+" set colorscheme
 colorscheme gruvbox
-hi Search ctermfg=109
+
+" highlight overly long lines
+highlight OverLength ctermbg=darkgray ctermfg=white
+
+hi Normal ctermfg=249 ctermbg=234
+hi Search ctermfg=19
 hi pythonBuiltin ctermfg=67
 hi pythonDecoratorName ctermfg=101
 hi pythonDecorator ctermfg=102
-hi Normal ctermfg=249
-hi Normal ctermbg=234
 hi Comment ctermfg=242
 hi pythonEscape ctermfg=65
 hi vimNotation ctermfg=65
@@ -349,41 +367,11 @@ nnoremap <Leader>sv :source $MYVIMRC<cr> :echo "Sourced" $MYVIMRC<cr>
 nnoremap <Leader>ev :split $MYVIMRC<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Sandbox settings
-" Settings here are meant to be temporary while I test them out.
-" Move them to the appropriate section above if I decide that I like them.
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"set laststatus=2
-"set statusline=
-""set statusline+=%#CursorLine#
-""set statusline+=%{StatuslineGit()}
-"set statusline+=\ %f
-"set statusline+=%m
-"set statusline+=%=
-""set statusline+=%#CursorLine#
-"set statusline+=\ %Y
-""set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-""set statusline+=\[%{&fileformat}\]
-"set statusline+=\ %p%%
-"set statusline+=\ %l:%c
-""set statusline+=\ %{wordcount()['words']}
-
-" itt = Insert Talk Template: useful for editing markdown files to take notes during a talk
-nnoremap <leader>itt o<cr>## Presenter, title, group, etc...<cr>- **Main question:** <cr>- **Key takeaway:** <cr>- <esc>kkkwv$h
-
-" find and replace: searches for word under string and puts cursor in position for replacement text
-nnoremap <leader>fr * :%s///g<left><left>
-
-
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ALE settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Only run linters that I specify
 let g:ale_linters_explicit = 1
 " set up clang-format
-let g:ale_c_clangformat_executable = '/opt/homebrew/bin/clang-format'
 let g:ale_c_clangformat_options = '-i --verbose'
 let g:ale_c_clangformat_use_local_file = 1
 
@@ -394,8 +382,7 @@ let g:ale_lint_on_save = 1
 let g:ale_fix_on_save = 1
 
 " use clang-format's native vim-integration
-let g:clang_format_path = '/opt/homebrew/bin/clang-format'
-function ClangFormat(buffer)
+function! ClangFormat(buffer)
   let l:lines="all"
   if has('python')
     pyf /Users/mtimc/.vim/clang-format.py
@@ -422,10 +409,7 @@ let g:ale_fixers = {
 
 
 " setup clangd with ale
-let g:ale_cpp_clangd_executable = '/usr/bin/clangd'
-let g:ale_c_clangd_executable = '/usr/bin/clangd'
 let g:ale_pattern_options_enabled = 0
-" let g:ale_pattern_options = { '\.h$': { 'ale_linters': { 'cpp' : ['clangd'] } } }
 let cpp_opts = '--std=c++20 -Wall -Wextra'
 let g:ale_linters = { 'cpp': ['clangd', ], 'c': ['clangd',], 'cc': ['clangd', ], 'h': ['clangd', ], 'hpp': ['clangd', ], 'rust': ['cargo'], 'python': ['ruff'], 'tex': ['chktex']}
 let g:ale_cpp_cc_options = cpp_opts
@@ -437,7 +421,18 @@ let g:ale_python_isort_options = ''
 let g:ale_set_balloons = 1
 
 
-
 nnoremap <C-J> :ALENextWrap<CR>
 nnoremap <C-K> :ALEPreviousWrap<CR>
 let g:NERDTreeWinSize=40
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Sandbox settings
+" Settings here are meant to be temporary while I test them out.
+" Move them to the appropriate section above if I decide that I like them.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" itt = Insert Talk Template: useful for editing markdown files to take notes during a talk
+nnoremap <leader>itt o<cr>## Presenter, title, group, etc...<cr>- **Main question:** <cr>- **Key takeaway:** <cr>- <esc>kkkwv$h
+
+" find and replace: searches for word under string and puts cursor in position for replacement text
+nnoremap <leader>fr * :%s///g<left><left>
