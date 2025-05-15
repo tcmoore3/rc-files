@@ -404,11 +404,11 @@ endif
 execute ale#fix#registry#Add('myclangformat', 'ClangFormat', ['c', 'cpp'], 'native clang-format integration into vim')
 let g:ale_fixers = {
 \   'python': ['ruff', 'ruff_format', 'isort', 'trim_whitespace'],
-\   'cpp': ['myclangformat', 'trim_whitespace'],
-\   'cc': ['myclangformat', 'trim_whitespace'],
-\   'c': ['myclangformat', 'trim_whitespace'],
-\   'h': ['myclangformat', 'trim_whitespace'],
-\   'hpp': ['myclangformat', 'trim_whitespace'],
+\   'cpp': ['clang-format', 'trim_whitespace'],
+\   'cc': ['clang-format', 'trim_whitespace'],
+\   'c': ['clang-format', 'trim_whitespace'],
+\   'h': ['clang-format', 'trim_whitespace'],
+\   'hpp': ['clang-format', 'trim_whitespace'],
 \   'rust': ['rustfmt'],
 \   'tex': ['trim_whitespace', 'remove_trailing_lines'],
 \}
