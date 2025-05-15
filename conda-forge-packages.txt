@@ -26,5 +26,7 @@ seaborn
 signac
 signac-dashboard
 sphinx
+tbb
+tbb-devel
 tqdm
 yapf
