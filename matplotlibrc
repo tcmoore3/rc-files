@@ -40,9 +40,7 @@ image.cmap: RdPu
 # my other changes
 backend      : MacOSX
 legend.fontsize      : 12
-savefig.transparent : True      # setting that controls whether figures are saved with a
 axes.labelsize      : 16  # fontsize of the x any y labels
-axes.labelweight    : 550  # weight of the x and y labels
 xtick.labelsize      : 10 # fontsize of the tick labels
 ytick.labelsize      : 10 # fontsize of the tick labels
 
