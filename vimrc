@@ -113,8 +113,9 @@ filetype indent plugin on
 let g:tex_flavor = "latex"
 
 " how to handle tab autocompletion
-set wildmode=list:longest,full
+set wildmode=longest,full
 set wildmenu
+set wildoptions=pum
 
 " toggle paste key
 set pastetoggle=<F2>
@@ -147,6 +148,20 @@ let &showbreak = '> '
 " automatically reload files when they change
 set autoread
 
+" set width of NERDTree windown
+let g:NERDTreeWinSize=40
+
+" set airline symbols
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.notexists = ' ?'
+let g:airline_symbols.branch = '⎇ '
+let g:airline_symbols.dirty = '(*)'
+let g:airline_symbols.colnr = ': '
+let g:airline_symbols.linenr = ' = '
+let g:airline_symbols.maxlinenr = ' '
+
 """""""""""""""""""""""""""
 " machine-specific settings
 """""""""""""""""""""""""""
@@ -162,7 +177,6 @@ if len(split(globpath('~', '.machine_cheme-paris')))
     let g:clang_format_path = '/opt/homebrew/bin/clang-format'
     let g:ale_c_clangformat_executable = '/opt/homebrew/bin/clang-format'
 endif
-
 
 " ncsa-delta
 if len(split(globpath('~', '.machine-delta')))
@@ -221,12 +235,6 @@ inoremap <leader>; <Esc>
 " and visual mode
 vnoremap <leader>; <Esc>
 
-" use ctrl-hjkl to move around windows
-nnoremap <silent> <c-h> :wincmd h<CR>
-nnoremap <silent> <c-j> :wincmd j<CR>
-nnoremap <silent> <c-k> :wincmd k<CR>
-nnoremap <silent> <c-l> :wincmd l<CR>
-
 " easier moving between tabs
 noremap <Leader>n <esc>:tabprevious<CR>
 noremap <Leader>m <esc>:tabnext<CR>
@@ -256,17 +264,13 @@ nnoremap <C-m> :TagbarToggle f<CR>
 " stay on current word with * search
 nnoremap * :keepjumps normal! mi*`i<CR>
 
+" use ctrl-j and ctrl-k to move to next and previous ALE error/warnings
+nnoremap <C-j> :ALENextWrap<CR>
+nnoremap <C-k> :ALEPreviousWrap<CR>
+
 " do not show fileformat output in airline statusline
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-let g:airline_symbols.notexists = ' ?'
-let g:airline_symbols.branch = '⎇ '
-let g:airline_symbols.dirty = '(*)'
-let g:airline_symbols.colnr = ': '
-let g:airline_symbols.linenr = ' = '
-let g:airline_symbols.maxlinenr = ' '
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocommands
@@ -375,33 +379,40 @@ nnoremap <Leader>ev :split $MYVIMRC<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ALE settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Global options
+let g:ale_pattern_options_enabled = 0
+" allow balloons (N.B.: only works with vim versions with balloon_eval
+let g:ale_set_balloons = 1
+
+" language-specific settings
+let cpp_opts = '--std=c++20 -Wall -Wextra'
+let g:ale_cpp_cc_options = cpp_opts
+let g:ale_cpp_gcc_options = cpp_opts
+let g:ale_cpp_clang_options = cpp_opts
+let g:ale_python_ruff_options = '--force-exclude'
+let g:ale_python_ruff_format_options = '--force-exclude'
+let g:ale_python_isort_options = ''
+
+" linter options
 " Only run linters that I specify
 let g:ale_linters_explicit = 1
-" set up clang-format
-let g:ale_c_clangformat_options = '-i --verbose'
-let g:ale_c_clangformat_use_local_file = 1
-
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 0
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_save = 1
 let g:ale_fix_on_save = 1
+let g:ale_linters = {
+\   'cpp': ['clangd', ],
+\   'c': ['clangd',],
+\   'cc': ['clangd', ],
+\   'h': ['clangd', ],
+\   'hpp': ['clangd', ],
+\   'rust': ['cargo'],
+\   'python': ['ruff'],
+\   'tex': ['chktex'],
+\}
 
-" use clang-format's native vim-integration
-function! ClangFormat(buffer)
-  let l:lines="all"
-  if has('python')
-    pyf /Users/mtimc/.vim/clang-format.py
-  elseif has('python3')
-    py3f /Users/mtimc/.vim/clang-format.py
-  endif
-endfunction
-if has('python3')
-    noremap <leader>fmt :py3f /opt/homebrew/Cellar/clang-format/20.1.3/share/clang/clang-format-diff.py<cr>
-    noremap <leader>fmta :call ClangFormat()<cr>
-endif
-
-execute ale#fix#registry#Add('myclangformat', 'ClangFormat', ['c', 'cpp'], 'native clang-format integration into vim')
+" fixer options
 let g:ale_fixers = {
 \   'python': ['ruff', 'ruff_format', 'isort', 'trim_whitespace'],
 \   'cpp': ['clang-format', 'trim_whitespace'],
@@ -412,24 +423,10 @@ let g:ale_fixers = {
 \   'rust': ['rustfmt'],
 \   'tex': ['trim_whitespace', 'remove_trailing_lines'],
 \}
+let g:ale_c_clangformat_options = ''
+" let clang-format find .clang-format to use for sytle
+let g:ale_c_clangformat_use_local_file = 1
 
-
-" setup clangd with ale
-let g:ale_pattern_options_enabled = 0
-let cpp_opts = '--std=c++20 -Wall -Wextra'
-let g:ale_linters = { 'cpp': ['clangd', ], 'c': ['clangd',], 'cc': ['clangd', ], 'h': ['clangd', ], 'hpp': ['clangd', ], 'rust': ['cargo'], 'python': ['ruff'], 'tex': ['chktex']}
-let g:ale_cpp_cc_options = cpp_opts
-let g:ale_cpp_gcc_options = cpp_opts
-let g:ale_cpp_clang_options = cpp_opts
-let g:ale_python_ruff_options = '--force-exclude'
-let g:ale_python_ruff_format_options = '--force-exclude'
-let g:ale_python_isort_options = ''
-let g:ale_set_balloons = 1
-
-
-nnoremap <C-J> :ALENextWrap<CR>
-nnoremap <C-K> :ALEPreviousWrap<CR>
-let g:NERDTreeWinSize=40
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Sandbox settings
