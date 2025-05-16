@@ -162,6 +162,9 @@ let g:airline_symbols.colnr = ': '
 let g:airline_symbols.linenr = ' = '
 let g:airline_symbols.maxlinenr = ' '
 
+" do not show fileformat output in airline statusline
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+
 """""""""""""""""""""""""""
 " machine-specific settings
 """""""""""""""""""""""""""
@@ -268,9 +271,8 @@ nnoremap * :keepjumps normal! mi*`i<CR>
 nnoremap <C-j> :ALENextWrap<CR>
 nnoremap <C-k> :ALEPreviousWrap<CR>
 
-" do not show fileformat output in airline statusline
-let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
-
+" call :Files (fzf file-matching -> edit, split, vsplit)
+nnoremap <leader>f<cr> :Files<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocommands
