@@ -376,6 +376,9 @@ nnoremap <Leader>sv :source $MYVIMRC<cr> :echo "Sourced" $MYVIMRC<cr>
 " open vimrc file in split window
 nnoremap <Leader>ev :split $MYVIMRC<cr>
 
+" open vimrc file in vsplit window
+nnoremap <Leader>vev :vsplit $MYVIMRC<cr>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ALE settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -438,4 +441,5 @@ let g:ale_c_clangformat_use_local_file = 1
 nnoremap <leader>itt o<cr>## Presenter, title, group, etc...<cr>- **Main question:** <cr>- **Key takeaway:** <cr>- <esc>kkkwv$h
 
 " find and replace: searches for word under string and puts cursor in position for replacement text
-nnoremap <leader>fr * :%s///g<left><left>
+nnoremap <leader>fr * :s///g<left><left>
+nnoremap <leader>%fr * :%s///g<left><left>
