@@ -62,6 +62,8 @@ export EXPANSE='mootimot@login.expanse.sdsc.edu'
 alias ls='ls -lh --color=auto'  # human readable, color coded ls
 alias jnb='jupyter-notebook'
 alias vi='vim'
+alias ssp='signac statepoint -p --'
+alias sdoc='signac document -p --'
 
 # MACHINE-SPECIFIC SETTINGS
 
@@ -94,7 +96,6 @@ if [[ -f $HOME/.machine_cheme-paris ]]; then
     export LSCOLORS=exgxcxdxcxegedabagacad
     export VIMRUNTIME=/Users/mtimc/software/micromamba/share/vim/vim91
     alias ls='ls -lhG'
-    alias ssp='signac statepoint -p --'
 
     # combine pdfs into a single pdf
     combine_pdfs () {

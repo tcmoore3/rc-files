@@ -162,6 +162,9 @@ let g:airline_symbols.colnr = ': '
 let g:airline_symbols.linenr = ' = '
 let g:airline_symbols.maxlinenr = ' '
 
+" do not show fileformat output in airline statusline
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+
 """""""""""""""""""""""""""
 " machine-specific settings
 """""""""""""""""""""""""""
@@ -268,9 +271,8 @@ nnoremap * :keepjumps normal! mi*`i<CR>
 nnoremap <C-j> :ALENextWrap<CR>
 nnoremap <C-k> :ALEPreviousWrap<CR>
 
-" do not show fileformat output in airline statusline
-let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
-
+" call :Files (fzf file-matching -> edit, split, vsplit)
+nnoremap <leader>f<cr> :Files<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autocommands
@@ -376,6 +378,9 @@ nnoremap <Leader>sv :source $MYVIMRC<cr> :echo "Sourced" $MYVIMRC<cr>
 " open vimrc file in split window
 nnoremap <Leader>ev :split $MYVIMRC<cr>
 
+" open vimrc file in vsplit window
+nnoremap <Leader>vev :vsplit $MYVIMRC<cr>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ALE settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -438,4 +443,5 @@ let g:ale_c_clangformat_use_local_file = 1
 nnoremap <leader>itt o<cr>## Presenter, title, group, etc...<cr>- **Main question:** <cr>- **Key takeaway:** <cr>- <esc>kkkwv$h
 
 " find and replace: searches for word under string and puts cursor in position for replacement text
-nnoremap <leader>fr * :%s///g<left><left>
+nnoremap <leader>fr * :s///g<left><left>
+nnoremap <leader>%fr * :%s///g<left><left>
