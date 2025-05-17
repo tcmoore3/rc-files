@@ -43,6 +43,8 @@ Plug 'xolox/vim-misc'
 Plug 'junegunn/seoul256.vim'  " colors
 Plug 'tpope/vim-commentary'  " easier commenting
 
+Plug 'vim-latex/vim-latex'
+
 call plug#end()
 
 """""""""""""""""""""""""
@@ -74,7 +76,7 @@ set showcmd
 set ignorecase
 set smartcase
 
-" stay on current word and do not jump to next instance when searching with "*" 
+" stay on current word and do not jump to next instance when searching with "*"
 nnoremap * :let @/ = "\\<<C-R><C-W>\\>"<CR>
 
 " highlight matches to previous search pattern
@@ -308,7 +310,7 @@ autocmd BufEnter *.c,*.h,*.cpp,*.cc,*.hpp,*.cu,*.cuh :match OverLength /\%111v.\
 
 
 """"""""""""""""""""""""""
-" Color-related settings " 
+" Color-related settings "
 """"""""""""""""""""""""""
 
 " change some of the gruvbox defaults
