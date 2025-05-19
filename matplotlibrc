@@ -38,7 +38,6 @@ image.cmap: RdPu
 
 
 # my other changes
-backend      : MacOSX
 legend.fontsize      : 12
 axes.labelsize      : 16  # fontsize of the x any y labels
 xtick.labelsize      : 10 # fontsize of the tick labels
@@ -79,6 +78,7 @@ ytick.labelsize      : 10 # fontsize of the tick labels
 # You can also deploy your own backend outside of matplotlib by
 # referring to the module name (which must be in the PYTHONPATH) as
 # 'module://my_backend'.
+# backend      : MacOSX
 
 # If you are using the Qt4Agg backend, you can choose here
 # to use the PyQt4 bindings or the newer PySide bindings to
