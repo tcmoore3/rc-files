@@ -172,7 +172,8 @@ let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 """""""""""""""""""""""""""
 
 " laptop
-if len(split(globpath('~', '.machine_cheme-paris')))
+if len(split(globpath('~', '.machine_cheme-paris'))) ||
+\  len(split(globpath('~', '.machine_cheme-kaline')))
     " use the correct shell
     set shell=/opt/homebrew/bin/bash
 
@@ -298,10 +299,12 @@ autocmd BufWinEnter *.* silent loadview
 autocmd BufNewFile,BufRead  *.cuh :set filetype=cpp
 autocmd BufNewFile,BufRead  *.cu :set filetype=cpp
 
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists('s:stsd_in') | NERDTree | endif
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
-    \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
+" autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
+"     \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
+" command! -nargs=* Startvimfugitive :Git
+" autocmd VimEnter * if argc() == 0 && !empty(FugitiveGitDir()) | Git | endif
 
 " highlighting long lines in different filetypes
 autocmd BufEnter *.py :match OverLength /\%89v.\+/

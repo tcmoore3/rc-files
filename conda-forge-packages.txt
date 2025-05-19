@@ -29,4 +29,5 @@ sphinx
 tbb
 tbb-devel
 tqdm
+# vim
 yapf
