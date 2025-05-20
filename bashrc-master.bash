@@ -111,8 +111,19 @@ fi
 # kaline (mac mini desktop)
 if [[ $HOSTNAME == cheme-kaline.engin.umich.edu ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
+    export PS1='\$KALINE:\w\n$(__git_ps1 "(%s)") $ '
+    export BASH_SILENCE_DEPRECATION_WARNING=1
+    export LSCOLORS=exgxcxdxcxegedabagacad
     alias ls='ls -lhG'
+
+    # use fzf shell integration
     eval "$(fzf --bash)"
+
+    # combine pdfs into a single pdf
+    combine_pdfs () {
+        gs -dNOPAUSE -sDEVICE=pdfwrite -sOUTPUTFILE="$1" -dBATCH "${@:2}"
+    }
+
 fi
 
 # hodges-specific things
