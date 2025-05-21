@@ -42,8 +42,9 @@ Plug 'xolox/vim-misc'
 " miscellaneous
 Plug 'junegunn/seoul256.vim'  " colors
 Plug 'tpope/vim-commentary'  " easier commenting
-
 Plug 'vim-latex/vim-latex'
+Plug 'morhetz/gruvbox'
+
 
 call plug#end()
 
