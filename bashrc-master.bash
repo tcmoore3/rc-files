@@ -77,7 +77,7 @@ then
 fi
 
 # UM laptop, named cheme-skubal
-if [[ -f $HOME/.machine_tims_laptop ]]; then
+if [[ -f $HOME/.machine_cheme-skubal ]]; then
     export PS1='\$SKUBAL:\w\n$(__git_ps1 "(%s)") $ '
     export BASH_SILENCE_DEPRECATION_WARNING=1
     export LSCOLORS=exgxcxdxcxegedabagacad
@@ -86,6 +86,9 @@ if [[ -f $HOME/.machine_tims_laptop ]]; then
         echo "gs -dNOPAUSE -sDEVICE=pdfwrite -sOUTPUTFILE=<outputfilename> -dBATCH file1.pdf file2.pdf ..."
     }
     eval "$(fzf --bash)"
+
+    # homebrew shell-integration
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 
 fi
 

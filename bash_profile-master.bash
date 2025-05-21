@@ -1,8 +1,21 @@
-if [[ $(hostname -s) == cheme-skubal ]];
-then
-    source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
-    source /opt/homebrew/opt/chruby/share/chruby/auto.sh
-    chruby ruby-3.1.3
+if [[ -f $HOME/.machine_cheme-skubal ]]; then
+    # source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+    # source /opt/homebrew/opt/chruby/share/chruby/auto.sh
+    # chruby ruby-3.1.3
+
+    # set up homebrew shell integration
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+
+    # set ENV to ~/.bashrc since kitty starts bash in posix mode which 
+    # doesn't read ~/.bashrc by default but instead reads the file pointed
+    # to by the environment variable $ENV
+    export ENV=~/.bashrc
+
+    export PATH=/Users/mtimc/micromamba/bin:$PATH
+    # . "$HOME/.cargo/env"
+    if [[ $- == *"$i"* ]]; then
+        . ~/.bashrc
+    fi
 fi
 
 if [[ -f $HOME/.machine_cheme-paris ]]; then
