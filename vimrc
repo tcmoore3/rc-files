@@ -174,7 +174,8 @@ let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 
 " laptop
 if len(split(globpath('~', '.machine_cheme-paris'))) ||
-\  len(split(globpath('~', '.machine_cheme-kaline')))
+\  len(split(globpath('~', '.machine_cheme-kaline'))) ||
+\  len(split(globpath('~', '.machine_cheme-skubal')))
     " use the correct shell
     set shell=/opt/homebrew/bin/bash
 
