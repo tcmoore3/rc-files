@@ -3,3 +3,4 @@ freud-analysis
 gsd
 rowan
 signac
+matplotlib
