@@ -1,3 +1,4 @@
+" ideas for useful commands {{{
 """"""""""""""""""""""""""""""""""""""
 """" IDEAS FOR USEFUL COMMANDS """""""
 """"""""""""""""""""""""""""""""""""""
@@ -8,12 +9,9 @@
 " add parenthesis (or any other type of bracket) around a visual selection
 "
 " remove the innermost set of parentheses or other brackets
+" }}}
 
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim-plugin plugin manager
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" plugins {{{
 call plug#begin()
 
 " filesystem-related plugins (git, fzf, etc...)
@@ -47,11 +45,9 @@ Plug 'morhetz/gruvbox'
 
 
 call plug#end()
+" }}}
 
-"""""""""""""""""""""""""
-" generic settings
-"""""""""""""""""""""""""
-
+" config options and variables {{{
 " set mapleader and set C_MapLeader
 let mapleader = ","
 let C_MapLeader = ","
@@ -190,11 +186,9 @@ endif
 if len(split(globpath('~', '.machine-delta')))
     set shell=/usr/bin/bash
 endif
+" }}}
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" keymappings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" mappings {{{
 " jump out of current block with
 " useful for c/c++ files where closing braces are automatically inserted
 inoremap <leader><leader>j <esc>]}o
@@ -278,11 +272,9 @@ nnoremap <C-k> :ALEPreviousWrap<CR>
 
 " call :Files (fzf file-matching -> edit, split, vsplit)
 nnoremap <leader>f<cr> :Files<cr>
+" }}}
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Autocommands
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" autocommands {{{
 " automatically source .vimrc when it's saved (useful for changes to take
 " place when editing the .vimrc file
 autocmd! bufwritepost .vimrc source %
@@ -312,12 +304,14 @@ autocmd BufNewFile,BufRead  *.cu :set filetype=cpp
 autocmd BufEnter *.py :match OverLength /\%89v.\+/
 autocmd BufEnter *.c,*.h,*.cpp,*.cc,*.hpp,*.cu,*.cuh :match OverLength /\%111v.\+/
 
+" set foldmethod for vimfiles
+augroup filetype_vim
+  autocmd!
+  autocmd FileType vim setlocal foldmethod=marker
+augroup END
+" }}}
 
-
-""""""""""""""""""""""""""
-" Color-related settings "
-""""""""""""""""""""""""""
-
+" colors {{{
 " change some of the gruvbox defaults
 let g:gruvbox_bold=0
 let g:gruvbox_italic=1
@@ -361,10 +355,9 @@ hi link texInputFile Normal
 hi link texLigature Normal
 hi link texDelimiter Normal
 let g:airline_theme="bubblegum"
+" }}}
 
-""""""""""""""""""""""""""""""""""""""
-"""" FROM LEARNVIMSCRIPTTHEHARDWAY """
-""""""""""""""""""""""""""""""""""""""
+" from learnvimscriptthehardway {{{
 
 " move current line down 1 in normal mode with -
 nnoremap <Leader>- dd p
@@ -387,10 +380,9 @@ nnoremap <Leader>ev :split $MYVIMRC<cr>
 
 " open vimrc file in vsplit window
 nnoremap <Leader>vev :vsplit $MYVIMRC<cr>
+" }}}
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ALE settings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ale {{{
 " Global options
 let g:ale_pattern_options_enabled = 0
 " allow balloons (N.B.: only works with vim versions with balloon_eval
@@ -438,10 +430,10 @@ let g:ale_fixers = {
 let g:ale_c_clangformat_options = ''
 " let clang-format find .clang-format to use for sytle
 let g:ale_c_clangformat_use_local_file = 1
+" }}}
 
-
+" sandbox {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Sandbox settings
 " Settings here are meant to be temporary while I test them out.
 " Move them to the appropriate section above if I decide that I like them.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -452,3 +444,4 @@ nnoremap <leader>itt o<cr>## Presenter, title, group, etc...<cr>- **Main questio
 " find and replace: searches for word under string and puts cursor in position for replacement text
 nnoremap <leader>fr * :s///g<left><left>
 nnoremap <leader>%fr * :%s///g<left><left>
+" }}}
