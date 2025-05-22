@@ -1,6 +1,6 @@
 coxeter
 freud-analysis
 gsd
+matplotlib
 rowan
 signac
-matplotlib
