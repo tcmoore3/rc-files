@@ -1,0 +1,9 @@
+# follow symbolic links since I use these a lot
+--follow
+
+# ignore ipynb files by default
+# (but put here for easier overriding compared to putting into .rgignore file)
+--type-not=jupyter
+
+# only make case-sensitive if search includes capitals
+--smart-case

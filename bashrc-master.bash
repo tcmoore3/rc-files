@@ -57,6 +57,7 @@ export DELTA='mootimot@dt-login01.delta.ncsa.illinois.edu'
 export KALINE='mtimc@cheme-kaline.engin.umich.edu'
 export ANVIL='x-mootimot@anvil.rcac.purdue.edu'
 export EXPANSE='mootimot@login.expanse.sdsc.edu'
+export RIPGREP_CONFIG_PATH=${HOME}/.config/ripgreprc
 
 # aliases I use everywhere
 alias ls='ls -lh --color=auto'  # human readable, color coded ls
