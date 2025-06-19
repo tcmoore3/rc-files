@@ -1,6 +1,7 @@
 cereal
 colorcet
 coxeter
+dust
 eigen
 freud
 furo
@@ -8,6 +9,7 @@ gsd
 h5py
 ipython
 isort
+jupyter
 jupyterlab
 jupyterlab_vim
 mamba

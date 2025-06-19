@@ -144,6 +144,9 @@ set bs=2
 " use let instead of set to use the string literal
 let &showbreak = '> '
 
+" use my bash aliases with :!
+let $BASH_ENV = "~/.bash_aliases"
+
 " automatically reload files when they change
 set autoread
 
@@ -309,6 +312,9 @@ augroup filetype_vim
   autocmd!
   autocmd FileType vim setlocal foldmethod=marker
 augroup END
+
+" set foldmethod for kitty.conf
+autocmd FileType conf setlocal foldmethod=marker
 " }}}
 
 " colors {{{
@@ -325,18 +331,19 @@ colorscheme gruvbox
 " highlight overly long lines
 highlight OverLength ctermbg=darkgray ctermfg=white
 
+
 hi Normal ctermfg=249 ctermbg=234
 hi Search ctermfg=109
+hi Comment ctermfg=242
+hi String ctermfg=143
 hi pythonBuiltin ctermfg=67
 hi pythonDecoratorName ctermfg=101
 hi pythonDecorator ctermfg=102
-hi Comment ctermfg=242
 hi pythonEscape ctermfg=65
 hi vimNotation ctermfg=65
 hi vimMapMod ctermfg=65
 hi vimMapModKey ctermfg=65
 hi vimBracket ctermfg=65
-hi String ctermfg=143
 hi markdownH1 ctermfg=172
 hi markdownH2 ctermfg=172
 hi markdownH3 ctermfg=172
@@ -354,6 +361,9 @@ hi link texTypeStyle GruvboxBlue
 hi link texInputFile Normal
 hi link texLigature Normal
 hi link texDelimiter Normal
+hi link pythonDocstring Comment
+hi def link aleFixerHelp Statement
+hi def link aleFixerComment Comment
 let g:airline_theme="bubblegum"
 " }}}
 
@@ -414,11 +424,12 @@ let g:ale_linters = {
 \   'rust': ['cargo'],
 \   'python': ['ruff'],
 \   'tex': ['chktex'],
+\   'javascript': ['eslint'],
 \}
 
 " fixer options
 let g:ale_fixers = {
-\   'python': ['ruff', 'ruff_format', 'isort', 'trim_whitespace'],
+\   'python': ['ruff_format', 'isort', 'trim_whitespace'],
 \   'cpp': ['clang-format', 'trim_whitespace'],
 \   'cc': ['clang-format', 'trim_whitespace'],
 \   'c': ['clang-format', 'trim_whitespace'],
@@ -426,6 +437,7 @@ let g:ale_fixers = {
 \   'hpp': ['clang-format', 'trim_whitespace'],
 \   'rust': ['rustfmt'],
 \   'tex': ['trim_whitespace', 'remove_trailing_lines'],
+\   'javascript': ['eslint', 'trim_whitespace'],
 \}
 let g:ale_c_clangformat_options = ''
 " let clang-format find .clang-format to use for sytle
@@ -442,6 +454,34 @@ let g:ale_c_clangformat_use_local_file = 1
 nnoremap <leader>itt o<cr>## Presenter, title, group, etc...<cr>- **Main question:** <cr>- **Key takeaway:** <cr>- <esc>kkkwv$h
 
 " find and replace: searches for word under string and puts cursor in position for replacement text
+" current line
 nnoremap <leader>fr * :s///g<left><left>
+" entire buffer
 nnoremap <leader>%fr * :%s///g<left><left>
+
+" key mapping for command history + fzf
+nnoremap <leader>h: :History:<cr>
+
+" fuzzy completion matching
+" first the function used (requires fzf.vim
+function! PInsert2(item)
+	let @z=a:item
+	norm "zp
+	call feedkeys('a')
+endfunction
+
+function! CompleteInf()
+	let nl=[]
+	let l=complete_info()
+	for k in l['items']
+		call add(nl, k['word']. ' : ' .k['info'] . ' '. k['menu'] )
+	endfor
+	call fzf#vim#complete(fzf#wrap({ 'source': nl,'reducer': { lines -> split(lines[0], '\zs :')[0] },'sink':function('PInsert2')}))
+endfunction
+" set appropriate completion options
+set completeopt=fuzzy,popup,menu
+
+
+imap <c-'> <CMD>:call CompleteInf()<CR>
+
 " }}}
