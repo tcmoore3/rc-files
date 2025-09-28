@@ -304,7 +304,6 @@ autocmd BufNewFile,BufRead  *.cu :set filetype=cpp
 " autocmd VimEnter * if argc() == 0 && !empty(FugitiveGitDir()) | Git | endif
 
 " highlighting long lines in different filetypes
-autocmd BufEnter *.py :match OverLength /\%89v.\+/
 autocmd BufEnter *.c,*.h,*.cpp,*.cc,*.hpp,*.cu,*.cuh :match OverLength /\%111v.\+/
 
 " set foldmethod for vimfiles
@@ -330,7 +329,6 @@ colorscheme gruvbox
 
 " highlight overly long lines
 highlight OverLength ctermbg=darkgray ctermfg=white
-
 
 hi Normal ctermfg=249 ctermbg=234
 hi Search ctermfg=109
@@ -483,5 +481,28 @@ set completeopt=fuzzy,popup,menu
 
 
 imap <c-'> <CMD>:call CompleteInf()<CR>
+
+""" TESTING IDEAS FOR A ROW PLUGIN
+function! OpenRowStatusBuffer(fname)
+    " Try to find a buffer with this buffer name
+    for bufnr in range(1, bufnr('$'))
+        if bufexists(bufnr) && getbufvar(bufnr, '&filetype') == 'rowstatus'
+            let winnr = bufwinnr(bufnr)
+            if winnr != -1
+                execute winnr . "wincmd w"
+            else
+                execute "sbuffer " . bufnr
+            endif
+            return
+        endif
+    endfor
+    " create new buffer with the special type
+    enew
+    let bufname = "RowStatusBuffer"
+    execute "file " . bufname
+    setlocal buftype=nofile bufhidden=wipe noswapfile
+    setlocal filetype=rowstatus
+endfunction
+command! RowStatusTerminal call OpenRowStatusBuffer("row show status")
 
 " }}}
