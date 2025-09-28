@@ -162,7 +162,7 @@ fi
 # bridges2-specific things
 if [[ $HOME == /jet/home/mootimot ]]; then
     export PS1='\$BRIDGES2:\w\n$(__git_ps1 "(%s)") $ '
-    alias cdscr="cd /ocean/projects/dmr170059p/mootimot/"    
+    alias cdscr="cd /ocean/projects/dmr170059p/mootimot/"
     umask 007
     alias q="squeue -u mootimot -o \"%.9i %.16j %.2t %.10M %.6D %B\""
     alias cdp="cd /ocean/projects/dmr170059p/mootimot/"
@@ -197,7 +197,23 @@ fi
 if [[ $LMOD_SYSTEM_NAME == Delta ]]; then
     export PS1='\$DELTA:\w\n$(__git_ps1 "(%s)") $ '
     alias q='squeue -u mootimot'
-    alias cdp='cd /scratch/bbgw/mootimot/'
+
+    # quickly switch to my scratch directory
+    alias cdp='cd'
+
+    # set up tab-completion for a cdp alias (i.e., cd -> scratch, i.e., cd /scratch/bbgw/mootimot),
+    # which enable the keystrokes: "cdp <tab>" to show the directories in my scratch directory
+    # to easily change to them
+    _cdp_completion() {
+        cd /scratch/bbgw/mootimot/
+        _cd
+    }
+    complete -F _cdp_completion cdp
+    slurm_status() {
+        row_output=$(row show directories -a run --submitted --no-separate-groups)
+        jobids=$(echo "$row_output" | grep -oE 'delta/[0-9]+' | grep -oE '[0-9]+' | sort -u | paste -sd, -)
+        squeue --me -j "$jobids"
+    }
 fi
 
 # anvil-specific settings
