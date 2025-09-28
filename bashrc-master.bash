@@ -85,6 +85,15 @@ if [[ -f $HOME/.machine_cheme-skubal ]]; then
     alias ls='ls -lhG'
     combine_pdfs () {
         gs -dNOPAUSE -sDEVICE=pdfwrite -sOUTPUTFILE="$1" -dBATCH "${@:2}"
+        i=0
+        filename=${1%.pdf}
+        filename=${filename##*/}
+        for file in "${@:2}"
+        do
+            mv $file ~/Documents/.pdfs-that-were-merged-with-others/${filename}_$i.pdf
+            i=$(expr $i + 1)
+        done
+
     }
     eval "$(fzf --bash)"
 
