@@ -414,6 +414,7 @@ let g:ale_linters = {
 \   'rust': ['cargo'],
 \   'python': ['ruff'],
 \   'tex': ['chktex'],
+\   'bash': ['bashate'],
 \}
 
 " fixer options
@@ -426,6 +427,7 @@ let g:ale_fixers = {
 \   'hpp': ['clang-format', 'trim_whitespace'],
 \   'rust': ['rustfmt'],
 \   'tex': ['trim_whitespace', 'remove_trailing_lines'],
+\   'bash': ['trim_whitespace'],
 \}
 let g:ale_c_clangformat_options = ''
 " let clang-format find .clang-format to use for sytle
@@ -444,4 +446,18 @@ nnoremap <leader>itt o<cr>## Presenter, title, group, etc...<cr>- **Main questio
 " find and replace: searches for word under string and puts cursor in position for replacement text
 nnoremap <leader>fr * :s///g<left><left>
 nnoremap <leader>%fr * :%s///g<left><left>
+
+" row-specific mappings
+" run row status ("rs") and put the results into a new window
+nnoremap <leader>rs :term++shell row show status<CR>
+nnoremap <leader>vrs :vert term++shell row show status<CR>
+" run `row show directories -a <word under cursor>`; meant to be used on
+" output of <leader>rs
+nnoremap <leader>rd :term++shell echo "row show directories -a <cword>"; row show directories -a <cword> --no-separate-groups<CR>
+nnoremap <leader>vrd :vert term++shell echo "row show directories -a <cword>"; row show directories -a <cword> --no-separate-groups<CR>
+" submit operation of word under cursor
+nnoremap <leader>rsu :term++shell row submit -a <cword><cr>
+nnoremap <leader>rsud :term++shell row submit -a <cword> --dry-run<cr>
+nnoremap <leader>vrsu :vert term++shell row submit -a <cword><cr>
+nnoremap <leader>vrsud :vert term++shell row submit -a <cword> --dry-run<cr>
 " }}}
