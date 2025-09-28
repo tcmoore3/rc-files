@@ -24,8 +24,8 @@ mkcd () {
     cd "$*"
 }
 
-# if interactive, allow forward searching (may also stop terminal "freezing")
-if [[ -z "$PS1" ]]; then
+# if interactive (i.e., "$PS1" is not an empty string), allow forward searching (may also stop terminal "freezing")
+if [[ -n "$PS1" ]]; then
     stty -ixon
 fi
 
@@ -84,7 +84,7 @@ if [[ -f $HOME/.machine_cheme-skubal ]]; then
     export LSCOLORS=exgxcxdxcxegedabagacad
     alias ls='ls -lhG'
     combine_pdfs () {
-        echo "gs -dNOPAUSE -sDEVICE=pdfwrite -sOUTPUTFILE=<outputfilename> -dBATCH file1.pdf file2.pdf ..."
+        gs -dNOPAUSE -sDEVICE=pdfwrite -sOUTPUTFILE="$1" -dBATCH "${@:2}"
     }
     eval "$(fzf --bash)"
 
