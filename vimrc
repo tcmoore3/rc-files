@@ -1,14 +1,9 @@
 " ideas for useful commands {{{
-""""""""""""""""""""""""""""""""""""""
-"""" IDEAS FOR USEFUL COMMANDS """""""
-""""""""""""""""""""""""""""""""""""""
-" These are descriptions of commands that would be useful but that I haven't
-" taken the time to work out the vimscript for
-""""""""""""""""""""""""""""""""""""""
 "
 " add parenthesis (or any other type of bracket) around a visual selection
 "
 " remove the innermost set of parentheses or other brackets
+"
 " }}}
 
 " plugins {{{
@@ -33,15 +28,12 @@ Plug 'vim-airline/vim-airline-themes'
 " python folding
 Plug 'tmhedberg/simpylfold'
 
-" better note-taking in vim
-Plug 'xolox/vim-notes'
-Plug 'xolox/vim-misc'
 
 " miscellaneous
 Plug 'junegunn/seoul256.vim'  " colors
 Plug 'tpope/vim-commentary'  " easier commenting
-Plug 'vim-latex/vim-latex'
-Plug 'morhetz/gruvbox'
+Plug 'vim-latex/vim-latex'  " for LaTeX
+Plug 'morhetz/gruvbox'  " a colorset
 
 
 call plug#end()
@@ -65,7 +57,7 @@ set expandtab
 " this is the generic setting, override for specific filetypes in after/syntax
 set shiftwidth=4
 
-" show commands in the last line of the screen
+" show last command in the last line of the screen
 set showcmd
 
 " let lowercase match lower and uppercase (ignore case) but uppercase only
@@ -96,7 +88,7 @@ set mouse=
 " match indent of previous line
 set autoindent
 
-" show line numbesr
+" show line numbers
 set number
 
 " whitesmith C style indentations (hoomd's preferred style)
@@ -150,7 +142,7 @@ let $BASH_ENV = "~/.bash_aliases"
 " automatically reload files when they change
 set autoread
 
-" set width of NERDTree windown
+" set width of NERDTree window
 let g:NERDTreeWinSize=40
 
 " set airline symbols
@@ -282,13 +274,7 @@ nnoremap <leader>f<cr> :Files<cr>
 " place when editing the .vimrc file
 autocmd! bufwritepost .vimrc source %
 
-" automatically save and load folds, from
-" http://vim.wikia.com/wiki/Make_views_automatic
-" this can be annoying if somehow folds got messed up since it shows a red
-" error message on the screen
-" I added this when i was trying to set folds manually.
-" maybe if i get a better folding engine i can get rid of it and let the
-" engine handle the folding.
+" create view when closing file, reload view when opening
 autocmd BufWinLeave *.* mkview
 autocmd BufWinEnter *.* silent loadview
 
