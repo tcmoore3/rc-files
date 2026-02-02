@@ -219,6 +219,12 @@ fi
 # anvil-specific settings
 if [[ $RCAC_CLUSTER == anvil ]]; then
     export PS1='\$ANVIL:\w\n$(__git_ps1 "(%s)") $ '
-    alias cdp='cd /anvil/scratch/x-mootimot'
+    alias cdp='cd'
     alias q="squeue -u x-mootimot -o \"%.9i %.30j %.2t %.10M %.6D %B\""
+
+    _cdp_completion() {
+        cd /anvil/scratch/x-mootimot/
+        _cd
+    }
+    complete -F _cdp_completion cdp
 fi
