@@ -73,4 +73,7 @@ if [[ $RCAC_CLUSTER == anvil ]]; then
     echo "It's probably also a good idea to add ~/.cargo/bin to the path."
     echo "Add both to PATH with:"
     echo '  export PATH=~/miniforge3/bin:~/.cargo/bin:$PATH'
+    if [[ -f ~/.bashrc ]]; then
+        . ~/.bashrc
+    fi
 fi

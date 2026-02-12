@@ -1,14 +1,9 @@
 " ideas for useful commands {{{
-""""""""""""""""""""""""""""""""""""""
-"""" IDEAS FOR USEFUL COMMANDS """""""
-""""""""""""""""""""""""""""""""""""""
-" These are descriptions of commands that would be useful but that I haven't
-" taken the time to work out the vimscript for
-""""""""""""""""""""""""""""""""""""""
 "
 " add parenthesis (or any other type of bracket) around a visual selection
 "
 " remove the innermost set of parentheses or other brackets
+"
 " }}}
 
 " plugins {{{
@@ -33,15 +28,12 @@ Plug 'vim-airline/vim-airline-themes'
 " python folding
 Plug 'tmhedberg/simpylfold'
 
-" better note-taking in vim
-Plug 'xolox/vim-notes'
-Plug 'xolox/vim-misc'
 
 " miscellaneous
 Plug 'junegunn/seoul256.vim'  " colors
 Plug 'tpope/vim-commentary'  " easier commenting
-Plug 'vim-latex/vim-latex'
-Plug 'morhetz/gruvbox'
+Plug 'vim-latex/vim-latex'  " for LaTeX
+Plug 'morhetz/gruvbox'  " a colorset
 
 
 call plug#end()
@@ -65,7 +57,7 @@ set expandtab
 " this is the generic setting, override for specific filetypes in after/syntax
 set shiftwidth=4
 
-" show commands in the last line of the screen
+" show last command in the last line of the screen
 set showcmd
 
 " let lowercase match lower and uppercase (ignore case) but uppercase only
@@ -96,7 +88,7 @@ set mouse=
 " match indent of previous line
 set autoindent
 
-" show line numbesr
+" show line numbers
 set number
 
 " whitesmith C style indentations (hoomd's preferred style)
@@ -150,7 +142,7 @@ let $BASH_ENV = "~/.bash_aliases"
 " automatically reload files when they change
 set autoread
 
-" set width of NERDTree windown
+" set width of NERDTree window
 let g:NERDTreeWinSize=40
 
 " set airline symbols
@@ -287,13 +279,7 @@ nnoremap <leader>f<cr> :Files<cr>
 " place when editing the .vimrc file
 autocmd! bufwritepost .vimrc source %
 
-" automatically save and load folds, from
-" http://vim.wikia.com/wiki/Make_views_automatic
-" this can be annoying if somehow folds got messed up since it shows a red
-" error message on the screen
-" I added this when i was trying to set folds manually.
-" maybe if i get a better folding engine i can get rid of it and let the
-" engine handle the folding.
+" create view when closing file, reload view when opening
 autocmd BufWinLeave *.* mkview
 autocmd BufWinEnter *.* silent loadview
 
@@ -309,7 +295,6 @@ autocmd BufNewFile,BufRead  *.cu :set filetype=cpp
 " autocmd VimEnter * if argc() == 0 && !empty(FugitiveGitDir()) | Git | endif
 
 " highlighting long lines in different filetypes
-autocmd BufEnter *.py :match OverLength /\%89v.\+/
 autocmd BufEnter *.c,*.h,*.cpp,*.cc,*.hpp,*.cu,*.cuh :match OverLength /\%111v.\+/
 
 " set foldmethod for vimfiles
@@ -335,7 +320,6 @@ colorscheme gruvbox
 
 " highlight overly long lines
 highlight OverLength ctermbg=darkgray ctermfg=white
-
 
 hi Normal ctermfg=249 ctermbg=234
 hi Search ctermfg=109
@@ -429,6 +413,7 @@ let g:ale_linters = {
 \   'rust': ['cargo'],
 \   'python': ['ruff'],
 \   'tex': ['chktex'],
+\   'bash': ['bashate'],
 \   'javascript': ['eslint'],
 \}
 
@@ -442,6 +427,7 @@ let g:ale_fixers = {
 \   'hpp': ['clang-format', 'trim_whitespace'],
 \   'rust': ['rustfmt'],
 \   'tex': ['trim_whitespace', 'remove_trailing_lines'],
+\   'bash': ['trim_whitespace'],
 \   'javascript': ['eslint', 'trim_whitespace'],
 \}
 let g:ale_c_clangformat_options = ''
@@ -464,6 +450,19 @@ nnoremap <leader>fr * :s///g<left><left>
 " entire buffer
 nnoremap <leader>%fr * :%s///g<left><left>
 
+" row-specific mappings
+" run row status ("rs") and put the results into a new window
+nnoremap <leader>rs :term++shell row show status<CR>
+nnoremap <leader>vrs :vert term++shell row show status<CR>
+" run `row show directories -a <word under cursor>`; meant to be used on
+" output of <leader>rs
+nnoremap <leader>rd :term++shell echo "row show directories -a <cword>"; row show directories -a <cword> --no-separate-groups<CR>
+nnoremap <leader>vrd :vert term++shell echo "row show directories -a <cword>"; row show directories -a <cword> --no-separate-groups<CR>
+" submit operation of word under cursor
+nnoremap <leader>rsu :term++shell row submit -a <cword><cr>
+nnoremap <leader>rsud :term++shell row submit -a <cword> --dry-run<cr>
+nnoremap <leader>vrsu :vert term++shell row submit -a <cword><cr>
+nnoremap <leader>vrsud :vert term++shell row submit -a <cword> --dry-run<cr>
 " key mapping for command history + fzf
 nnoremap <leader>h: :History:<cr>
 
@@ -488,5 +487,28 @@ set completeopt=fuzzy,popup,menu
 
 
 imap <c-'> <CMD>:call CompleteInf()<CR>
+
+""" TESTING IDEAS FOR A ROW PLUGIN
+function! OpenRowStatusBuffer(fname)
+    " Try to find a buffer with this buffer name
+    for bufnr in range(1, bufnr('$'))
+        if bufexists(bufnr) && getbufvar(bufnr, '&filetype') == 'rowstatus'
+            let winnr = bufwinnr(bufnr)
+            if winnr != -1
+                execute winnr . "wincmd w"
+            else
+                execute "sbuffer " . bufnr
+            endif
+            return
+        endif
+    endfor
+    " create new buffer with the special type
+    enew
+    let bufname = "RowStatusBuffer"
+    execute "file " . bufname
+    setlocal buftype=nofile bufhidden=wipe noswapfile
+    setlocal filetype=rowstatus
+endfunction
+command! RowStatusTerminal call OpenRowStatusBuffer("row show status")
 
 " }}}
