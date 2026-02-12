@@ -189,6 +189,11 @@ endif
 if len(split(globpath('~', '.machine-delta')))
     set shell=/usr/bin/bash
 endif
+
+" cheme-hodges
+if len(split(globpath('~', '.machine-hodges')))
+    set shell=/usr/bin/bash
+endif
 " }}}
 
 " mappings {{{
