@@ -29,6 +29,13 @@ if [[ -n "$PS1" ]]; then
     stty -ixon
 fi
 
+# append to the history file, don't overwrite it
+shopt -s histappend
+#
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1
+HISTSIZE=1000
+HISTFILESIZE=2000
+
 # environment variables used on all machines
 # machines I log in to
 export HOPPER='tcmoore3@hopper.nersc.gov'
