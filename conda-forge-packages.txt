@@ -3,6 +3,7 @@ colorcet
 coxeter
 dust
 eigen
+fd-find
 freud
 furo
 gsd
@@ -20,6 +21,7 @@ pandoc
 pre-commit
 pybind11
 pytest
+ripgrep
 row
 rowan
 ruff
