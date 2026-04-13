@@ -305,6 +305,9 @@ augroup END
 
 " set foldmethod for kitty.conf
 autocmd FileType conf setlocal foldmethod=marker
+
+" do not show line numbers in TERMINAL windows in N mode
+autocmd TerminalOpen * setlocal nonumber norelativenumber
 " }}}
 
 " colors {{{
