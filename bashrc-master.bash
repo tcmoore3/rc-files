@@ -129,7 +129,7 @@ if [[ -f $HOME/.machine_cheme-paris ]]; then
 fi
 
 # kaline (mac mini desktop)
-if [[ $HOSTNAME == cheme-kaline.engin.umich.edu ]]; then
+if [[ -f $HOME/.machine_cheme-kaline ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
     export PS1='\$KALINE:\w\n$(__git_ps1 "(%s)") $ '
     export BASH_SILENCE_DEPRECATION_WARNING=1
